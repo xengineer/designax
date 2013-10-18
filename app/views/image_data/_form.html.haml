@@ -1,0 +1,15 @@
+= simple_form_for(@image_datum) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :project
+    = f.association :designdata_id
+    = f.input :seq_id
+    = f.input :image
+    = f.input :ctype
+    = f.input :thumbnail
+    = f.input :up_date
+    = f.association :state
+
+  .form-actions
+    = f.button :submit

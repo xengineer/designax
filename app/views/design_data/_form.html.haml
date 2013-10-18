@@ -1,0 +1,22 @@
+-# encoding: utf-8
+
+  .form-inputs
+= simple_form_for @design_datum, :html => {:multipart => true} do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.collection_select :project_id, @projects, :id, :project_name
+    = f.input_field :image, :as => :file
+    = f.input_field :thumbnail, :as => :file
+    = f.input :file_name
+    = f.input :up_date
+    = f.input :attr
+    = f.input :designer
+    = f.input :memo
+    = f.collection_select :state_id, @states, :id, :state
+    = f.collection_select :corp_state_id, @corp_states, :id, :state
+    = f.input :design_comment
+    = f.input :corp_comment
+
+  .form-actions
+    = f.button :submit

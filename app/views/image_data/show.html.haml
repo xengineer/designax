@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Project:
+  = @image_datum.project
+%p
+  %b Designdata:
+  = @image_datum.designdata_id_id
+%p
+  %b Seq:
+  = @image_datum.seq_id
+%p
+  %b Image:
+  =image_tag url_for(:action => 'show_image', :id => @image_datum), :alt => 'thumbnail.jpg'
+%p
+  %b Ctype:
+  = @image_datum.ctype
+%p
+  %b Thumbnail:
+  = @image_datum.thumbnail
+%p
+  %b Up date:
+  = @image_datum.up_date
+%p
+  %b State:
+  = @image_datum.state
+
+= link_to 'Edit', edit_image_datum_path(@image_datum)
+\|
+= link_to 'Back', image_data_path

@@ -1,0 +1,13 @@
+= form_for @corp_state do |f|
+  - if @corp_state.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@corp_state.errors.count, "error")} prohibited this corp_state from being saved:"
+      %ul
+        - @corp_state.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :state
+    = f.text_field :state
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,118 @@
+-# encoding: UTF-8
+
+= simple_form_for @design_datum, :html => {:multipart => true}, :method => :post do |f|
+  = f.error_notification
+
+  .form-inputs
+  %input#designer{:name => "design_datum[designer]", :type => "hidden", :value => current_user.username}
+  %table.designdata_table
+    %tr
+      %th プロジェクト名
+      %th アップロード画像
+      %th File Name(in product)
+    %tr
+      %td= f.collection_select :project_id, @projects, :id, :project_name
+      %td= f.input_field :thumbnail, :as => :file
+      %td= f.input_field :file_name
+    %tr
+      %th 納期
+      %th 状態(絵の)
+      %th 企業側チェック状況
+    %tr
+      %span
+        %td= f.date_select :deadline, options = {:start_year => Time.now.year, :use_month_numbers => true}, :style => "width: 30%"
+      %td= f.collection_select :state_id, @states, :id, :state
+      %td= f.collection_select :corp_state_id, @corp_states, :id, :state
+
+  %br
+  .formactions
+    = f.button :submit
+
+  %br
+    =collection_select :user, :user_id, @users, :id, :username, prompt: "All users", :selected => @fltArtist
+    =collection_select :project, :project_id, @projects, :id, :project_name, prompt: "All Projects", :selected => @fltProject
+    =collection_select :state, :state_id, @states, :id, :state, prompt: "All states", :selected => @fltState
+    =collection_select :corp_state, :corp_state_id, @corp_states, :id, :state, prompt: "All check states", :selected => @fltCorpState
+    %label.checkbox.inline
+      %input{:type => "checkbox", :name => "delflag", :id => "delflag", :checked => @fltDelFlag} 削除データ
+  %br
+
+
+  - @design_data.each do |design_datum|
+    %div.imagetile
+      %div.divleftimage= image_tag(url_for(:action => 'show_thumbnail', :id => design_datum), :id => design_datum.id, :thumb => url_for(:action => 'show_thumbnail', :id => design_datum), :url => @urlroot)
+      %div.divrighttxt= design_datum.project.project_name
+      %div.divrighttxt= design_datum.designer
+      %div.divrighttxt= design_datum.file_name
+      %div.divrighttxt= design_datum.deadline
+      %div.divrighttxt= design_datum.memo
+      %div.divrighttxt
+        %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
+%br
+
+#bkg.blockbkg{:style => "visibility: hidden;"}
+  #dlg.dialog{:style => "visibility: hidden;"}
+    #xbutton.xbutton{:title => "Close"}
+    #gallery.ad-gallery
+      .ad-image-wrapper
+      .ad-controls
+      .ad-nav
+        .ad-thumbs{:style => "width: 600px;"}
+          %ul.ad-thumb-list{:style => "width: 600px;"}
+    #form_update
+      %input{:name => "authenticity_token", :type => "hidden", :value => ""}
+      %table.design_tablemodal
+        %tr
+          %td.design_td1{:rowspan => "5"}
+            #gallery_imgs
+          %td.design_td2
+            = current_user.username
+          %td.design_td{:colspan => "1", :width => "435px"}
+            %input#design_state{:name => "design_datum[state_id]", :type => "hidden", :value => ""}
+            .btn-group.design_state{"data-toggle" => "buttons-radio"}
+              %button#outline.btn{:type => "button", :value => "1"} 構図
+              %button#rough.btn{:type => "button", :value => "2"} ラフ
+              %button#line.btn{:type => "button", :value => "3"} 線画
+              %button#color.btn{:type => "button", :value => "4"} 着色
+              %button#uppergrade.btn{:type => "button", :value => "5"} 上位
+              %button#flip.btn{:type => "button", :value => "6"} 反転
+              %button#others.btn{:type => "button", :value => "7"} 納品済
+          %td.design_td2{:colspan => "2", :width => "435px"}
+            %span#input_deadline
+        %tr
+          %td.design_td2
+            #input_filename
+          %td.design_td{:width => "435px"}
+            %input#corp_state{:name => "design_datum[corp_state_id]", :type => "hidden", :value => ""}
+            .btn-group.check{"data-toggle" => "buttons-radio"}
+              %button#notchecked.btn{:type => "button", :value => "1"} 未確認
+              %button#ok.btn{:type => "button", :value => "2"} OK
+              %button#retake.btn{:type => "button", :value => "3"} リテイク
+          %td
+            %input{:name => "_method", :type => "hidden", :value => "put"}
+            %input#design_datum_thumbnail.file.optional{:name => "thumbnail", :type => "file"}
+          %td
+            #imageid
+            %input{:type => "submit", :value => "更新"}
+        %tr
+          %td.design_td2
+            #input_comment
+          %td.design_td{:rowspan => "3", :width => "200px"}
+            #input_designcomment{:style => "height:120px"}
+          %td.design_td{:colspan => "2", :rowspan => "3", :width => "200px"}
+            #input_corpcomment{:style => "height:120px"}
+        %tr
+          %td.design_td2
+            %input.input-medium{:placeholder => "削除コード"}
+        %tr
+          %td.design_td2
+            %input{:type => "submit", :value => "削除"}
+
+#bkg.deleteblk{:style => "visibility: hidden;"}
+  #dlg.deletelists{:style => "visibility: hidden;"}
+    #xbtndel.xbtndel{:title => "Close"}
+    #form_delete
+      %input{:type => "hidden", :name => "_method", :value => "put"}
+      %input{:name => "authenticity_token", :type => "hidden", :value => ""}
+      #delimages
+      %input{:type => "submit", :value => "削除"}

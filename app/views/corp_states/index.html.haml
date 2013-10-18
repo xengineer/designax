@@ -1,0 +1,19 @@
+%h1 Listing corp_states
+
+%table
+  %tr
+    %th State
+    %th
+    %th
+    %th
+
+  - @corp_states.each do |corp_state|
+    %tr
+      %td= corp_state.state
+      %td= link_to 'Show', corp_state
+      %td= link_to 'Edit', edit_corp_state_path(corp_state)
+      %td= link_to 'Destroy', corp_state, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Corp state', new_corp_state_path

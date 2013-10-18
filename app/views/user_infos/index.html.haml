@@ -1,0 +1,19 @@
+%h1 Listing user_infos
+
+%table
+  %tr
+    %th User
+    %th
+    %th
+    %th
+
+  - @user_infos.each do |user_info|
+    %tr
+      %td= user_info.user_id
+      %td= link_to 'Show', user_info
+      %td= link_to 'Edit', edit_user_info_path(user_info)
+      %td= link_to 'Destroy', user_info, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New User info', new_user_info_path

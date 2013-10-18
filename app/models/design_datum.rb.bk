@@ -1,0 +1,6 @@
+class DesignDatum < ActiveRecord::Base
+  belongs_to :project
+  belongs_to :state
+  belongs_to :corp_state
+  attr_accessible :attr, :corp_comment, :ctype, :curSeq_id, :design_comment, :designer, :file_name, :memo, :thumbnail, :up_date
+end

@@ -1,0 +1,21 @@
+%h1 Listing user_projects
+
+%table
+  %tr
+    %th User
+    %th Project
+    %th
+    %th
+    %th
+
+  - @user_projects.each do |user_project|
+    %tr
+      %td= user_project.user_id
+      %td= user_project.project_id
+      %td= link_to 'Show', user_project
+      %td= link_to 'Edit', edit_user_project_path(user_project)
+      %td= link_to 'Destroy', user_project, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New User project', new_user_project_path

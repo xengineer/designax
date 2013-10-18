@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b State:
+  = @corp_state.state
+
+= link_to 'Edit', edit_corp_state_path(@corp_state)
+\|
+= link_to 'Back', corp_states_path

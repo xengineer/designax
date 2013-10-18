@@ -1,0 +1,33 @@
+%h1 Listing image_data
+
+%table
+  %tr
+    %th Project
+    %th Designdata
+    %th Seq
+    %th Image
+    %th Ctype
+    %th Thumbnail
+    %th Up date
+    %th State
+    %th
+    %th
+    %th
+
+  - @image_data.each do |image_datum|
+    %tr
+      %td= image_datum.project
+      %td= image_datum.designdata_id
+      %td= image_datum.seq_id
+      %td= image_datum.image
+      %td= image_datum.ctype
+      %td= image_datum.thumbnail
+      %td= image_datum.up_date
+      %td= image_datum.state
+      %td= link_to 'Show', image_datum
+      %td= link_to 'Edit', edit_image_datum_path(image_datum)
+      %td= link_to 'Destroy', image_datum, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Image datum', new_image_datum_path

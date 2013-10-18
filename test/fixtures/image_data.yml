@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  project: 
+  designdata_id: 
+  seq_id: 1
+  image: 
+  ctype: MyString
+  thumbnail: 
+  up_date: 2013-06-08
+  state: 
+
+two:
+  project: 
+  designdata_id: 
+  seq_id: 1
+  image: 
+  ctype: MyString
+  thumbnail: 
+  up_date: 2013-06-08
+  state: 

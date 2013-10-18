@@ -1,0 +1,251 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require jquery.ad-gallery.css
+ *= require_tree .
+ */
+/*
+*= require font-awesome
+*/
+
+.designdata_table {
+  margin:0px;padding:0px;
+  width:100%;
+  box-shadow: 10px 10px 5px #888888;
+  border:1px solid #7f7f7f;
+  
+  -moz-border-radius-bottomleft:4px;
+  -webkit-border-bottom-left-radius:4px;
+  border-bottom-left-radius:4px;
+  
+  -moz-border-radius-bottomright:4px;
+  -webkit-border-bottom-right-radius:4px;
+  border-bottom-right-radius:4px;
+  
+  -moz-border-radius-topright:4px;
+  -webkit-border-top-right-radius:4px;
+  border-top-right-radius:4px;
+  
+  -moz-border-radius-topleft:4px;
+  -webkit-border-top-left-radius:4px;
+  border-top-left-radius:4px;
+}.designdata_table table{
+  width:100%;
+  height:100%;
+  margin:0px;padding:0px;
+}.designdata_table tr:last-child td:last-child {
+  -moz-border-radius-bottomright:4px;
+  -webkit-border-bottom-right-radius:4px;
+  border-bottom-right-radius:4px;
+}
+.designdata_table table tr:first-child td:first-child {
+  -moz-border-radius-topleft:4px;
+  -webkit-border-top-left-radius:4px;
+  border-top-left-radius:4px;
+}
+.designdata_table table tr:first-child td:last-child {
+  -moz-border-radius-topright:4px;
+  -webkit-border-top-right-radius:4px;
+  border-top-right-radius:4px;
+}.designdata_table tr:last-child td:first-child{
+  -moz-border-radius-bottomleft:4px;
+  -webkit-border-bottom-left-radius:4px;
+  border-bottom-left-radius:4px;
+}.designdata_table tr:hover td{
+  
+}
+.designdata_table tr:nth-child(odd){ background-color:#ffaa56; }
+.designdata_table tr:nth-child(even)    { background-color:#ffffff; }.designdata_table td{
+  vertical-align:middle;
+  
+  
+  border:1px solid #7f7f7f;
+  border-width:0px 1px 1px 0px;
+  text-align:center;
+  padding:5px;
+  font-size:10px;
+  font-family:Arial;
+  font-weight:normal;
+  color:#000000;
+}.designdata_table tr:last-child td{
+  border-width:0px 1px 0px 0px;
+}.designdata_table tr td:last-child{
+  border-width:0px 0px 1px 0px;
+}.designdata_table tr:last-child td:last-child{
+  border-width:0px 0px 0px 0px;
+}
+.designdata_table tr:first-child td{
+  background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+  background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");  background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+  background-color:#ff7f00;
+  border:0px solid #7f7f7f;
+  text-align:center;
+  border-width:0px 0px 1px 1px;
+  font-size:14px;
+  font-family:Arial;
+  font-weight:bold;
+  color:#ffffff;
+}
+.designdata_table tr:first-child:hover td{
+  background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+  background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");  background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+  background-color:#ff7f00;
+}
+.designdata_table tr:first-child td:first-child{
+  border-width:0px 0px 1px 0px;
+}
+.designdata_table tr:first-child td:last-child{
+  border-width:0px 0px 1px 1px;
+}
+
+
+
+
+
+#breadcrumbs{
+  overflow: hidden;
+  width: 100%;
+}
+
+#breadcrumbs li{
+  float: left;
+  margin: 0 .5em 0 1em;
+}
+
+#breadcrumbs a{
+  background: #ddd;
+  padding: .7em 1em;
+  float: left;
+  text-decoration: none;
+  color: #444;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5); 
+  position: relative;
+}
+
+#breadcrumbs a:hover{
+  background: #99db76;
+}
+
+#breadcrumbs a::before{
+  content: "";
+  position: absolute;
+  top: 50%; 
+  margin-top: -1.5em;   
+  border-width: 1.5em 0 1.5em 1em;
+  border-style: solid;
+  border-color: #ddd #ddd #ddd transparent;
+  left: -1em;
+}
+
+#breadcrumbs a:hover::before{
+  border-color: #99db76 #99db76 #99db76 transparent;
+}
+
+#breadcrumbs a::after{
+  content: "";
+  position: absolute;
+  top: 50%; 
+  margin-top: -1.5em;   
+  border-top: 1.5em solid transparent;
+  border-bottom: 1.5em solid transparent;
+  border-left: 1em solid #ddd;
+  right: -1em;
+}
+
+#breadcrumbs a:hover::after{
+  border-left-color: #99db76;
+}
+
+#breadcrumbs .current,
+#breadcrumbs .current:hover{
+  background: #99db76;
+  font-weight: bold;
+}
+
+#breadcrumbs .current::after{
+  content: "";
+  position: absolute;
+  top: 50%; 
+  margin-top: -1.5em;   
+  border-top: 1.5em solid transparent;
+  border-bottom: 1.5em solid transparent;
+  border-left: 1em solid #99db76;
+  right: -1em;
+}
+
+#breadcrumbs .current::before{
+  content: "";
+  position: absolute;
+  top: 50%; 
+  margin-top: -1.5em;   
+  border-width: 1.5em 0 1.5em 1em;
+  border-style: solid;
+  border-color: #99db76 #99db76 #99db76 transparent;
+  left: -1em;
+}
+
+.design_table {
+  border: 2px solid #555555;
+  rules: none;
+  width: 1200px;
+  height: 150px;
+  border-spacing: 0;
+  
+  -moz-border-radius-bottomleft:4px;
+  -webkit-border-bottom-left-radius:4px;
+  border-bottom-left-radius:4px;
+  
+  -moz-border-radius-bottomright:4px;
+  -webkit-border-bottom-right-radius:4px;
+  border-bottom-right-radius:4px;
+  
+  -moz-border-radius-topright:4px;
+  -webkit-border-top-right-radius:4px;
+  border-top-right-radius:4px;
+  
+  -moz-border-radius-topleft:4px;
+  -webkit-border-top-left-radius:4px;
+  border-top-left-radius:4px;
+}
+
+.design_td {
+  padding: 5px;
+  border-width: 0;
+}
+
+.design_td1 {
+  padding: 5px;
+  border-width: 0;
+  width:  100px;
+  height: 120px;
+}
+
+.design_td2 {
+  padding: 5px;
+  border-width: 0;
+  width:  100px;
+  height:  20px;
+}
+
+.design_txtinput {
+  color:#999999;
+}
+
+.design_txtarea {
+  width:   95%;
+  height:  95%;
+  color:#999999;
+}
+

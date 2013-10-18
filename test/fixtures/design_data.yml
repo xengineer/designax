@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  project: 
+  file_name: MyString
+  curSeq_id: 1
+  thumbnail: 
+  ctype: MyString
+  up_date: 2013-06-09
+  attr: MyString
+  designer: MyString
+  memo: MyString
+  state: 
+  corp_state: 
+  design_comment: MyString
+  corp_comment: MyString
+
+two:
+  project: 
+  file_name: MyString
+  curSeq_id: 1
+  thumbnail: 
+  ctype: MyString
+  up_date: 2013-06-09
+  attr: MyString
+  designer: MyString
+  memo: MyString
+  state: 
+  corp_state: 
+  design_comment: MyString
+  corp_comment: MyString

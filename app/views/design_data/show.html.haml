@@ -1,0 +1,45 @@
+%p#notice= notice
+
+%p
+  %b Project:
+  = @design_datum.project
+%p
+  %b File name:
+  = @design_datum.file_name
+%p
+  %b Curseq:
+  = @design_datum.curSeq_id
+%p
+  %b Thumbnail:
+  =image_tag url_for(:action => 'show_thumbnail', :id => @design_datum), :alt => 'thumbnail.jpg'
+%p
+  %b Ctype:
+  = @design_datum.ctype
+%p
+  %b Up date:
+  = @design_datum.up_date
+%p
+  %b Attr:
+  = @design_datum.attr
+%p
+  %b Designer:
+  = @design_datum.designer
+%p
+  %b Memo:
+  = @design_datum.memo
+%p
+  %b State:
+  = @design_datum.state
+%p
+  %b Corp state:
+  = @design_datum.corp_state
+%p
+  %b Design comment:
+  = @design_datum.design_comment
+%p
+  %b Corp comment:
+  = @design_datum.corp_comment
+
+= link_to 'Edit', edit_design_datum_path(@design_datum)
+\|
+= link_to 'Back', design_data_path
