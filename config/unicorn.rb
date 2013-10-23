@@ -1,4 +1,3 @@
-
 $default_env   = "production" # デフォルトRailsEnv
 $unicorn_user  = "nubee"        # slaveの実行ユーザ
 $unicorn_group = "nubee"        # slaveの実行グループ
@@ -7,6 +6,9 @@ $dev_processes  = 4           # dev環境用子プロセス数
 $prod_processes = 16          # 本番環境用子プロセス数
 
 $timeout = 75                 # タイムアウト秒数。タイムアウトしたslaveは再起動される
+$rootdir = '/opt/app/designax/current/'
+$pidval = $rootdir + '/tmp/pids/unicorn.pid'
+
 
 # String => UNIX domain socket / FixNum => TCP socket
 # $listen = "/home/bps/tmp/unicorn.sock"
@@ -21,6 +23,10 @@ worker_processes (rails_env == 'production' ? $prod_processes : $dev_processes)
 preload_app true
 timeout $timeout
 listen $listen, :backlog => 2048
+pid $pidval
+
+stderr_path "./log/unicorn.stderr.log"
+stdout_path "./log/unicorn.stderr.log"
 
 # workerをフォークする前の処理
 before_fork do |server, worker|
