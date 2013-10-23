@@ -157,6 +157,7 @@ class DesignDataController < ApplicationController
       @image_datum.setImage(thumb)
     # こっちは既存レコードの納期とか状態を更新する
     else
+      d.project_id = @design_datum.project_id
       @image_datum = ImageDatum.find(imageId)
     end
 
