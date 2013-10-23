@@ -25,22 +25,9 @@ class ImageDataController < ApplicationController
     end
   end
 
-  #def get_firstfile
-  #  text = ""
-  #  respond_to do |format|
-  #    format.text {
-  #      @design_data = DesignDatum.find(params[:id])
-  #      seq = @design_data.curSeq_id
-  #      @image_data  = ImageDatum.find_by_file_name_and_seq_id(@design_data.file_name, seq)
-  #      lp = 1
-  #      text = text + "<div class=\"ad-image\" style=\"width: 224px; height: 315px; top: 42.5px; left: 188px;\"><img src=\"http://127.0.0.1:3000/image_data/image/" + @image_data.id.to_s + "\" width=\"224\" height=\"315\"></div>"
-  #      send_data(text.to_s, :type => 'text/plain', :disposition =>'inline')
-  #    }
-  #  end
-  #end
-
   def get_removeImages
     text = ""
+    urlroot = Designax::Application.config.urlroot
     respond_to do |format|
       format.text {
         @design_data = DesignDatum.find(params[:id])
@@ -58,7 +45,7 @@ class ImageDataController < ApplicationController
                   "  <td class=\"design_td2\">\n"       +
                   "    <div class=\"imagetiledel\">\n"  +
                   "      <div class=\"removeImage\">\n" +
-                  "        <img alt=\"" + lp.to_s + "\" height=\"50px\" src=\"" + "http://127.0.0.1:3000/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
+                  "        <img alt=\"" + lp.to_s + "\" height=\"50px\" src=\"" + urlroot + "/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
                   "      </div>\n" +
                   "      <span class=\"removeImageTxtTopLeft\"> デザイナー名 </span>" +
                   "      <span class=\"removeImageTxtTop\"> プロジェクト名 </span>" +
@@ -77,7 +64,6 @@ class ImageDataController < ApplicationController
                   "  </td>" +
                   "</tr>"
 
-#                  "        <a display=\"block\" height=\"50px\" href=\"http://127.0.0.1:3000/image_data/image/" + image.id.to_s + "\">\n" +
           lp = lp + 1
         }
         text = text + "</tbody>\n</table>\n"
@@ -88,6 +74,7 @@ class ImageDataController < ApplicationController
 
   def get_imagefiles
     text = ""
+    urlroot = Designax::Application.config.urlroot
     design_data = DesignDatum.find(params[:id])
     #image_data  = ImageDatum.find_all_by_file_name(design_data.file_name)
     
@@ -98,8 +85,8 @@ class ImageDataController < ApplicationController
         lp = 1
         image_data.each { |image|
           text = text + "<li>\n" +
-                        "    <a display=\"block\" height=\"50px\" href=\"http://127.0.0.1:3000/image_data/image/" + image.id.to_s + "\">\n" +
-                        "    <img alt=\"" + lp.to_s + "\" height=\"50px\" src=\"" + "http://127.0.0.1:3000/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
+                        "    <a display=\"block\" height=\"50px\" href=\"" + urlroot + "/image_data/image/" + image.id.to_s + "\">\n" +
+                        "    <img alt=\"" + lp.to_s + "\" height=\"50px\" src=\"" + urlroot + "/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
                         "  </a>\n" +
                         "</li>"
           lp = lp + 1
