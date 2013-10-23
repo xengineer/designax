@@ -3,11 +3,12 @@
 
 $(function () {
   $(".imagetile .divleftimage img").click(function() {
-    var url        = $(this).attr("url") + $(this).attr("thumb")
+    var url        = $(this).attr("url")
+    var thumburl   = url + $(this).attr("thumb")
     var id         = $(this).attr("id")
-    var imgs       = "/image_data/get_imagefiles/" + $(this).attr("id")
-    var crtIdURL   = "/image_data/get_currentId/" + $(this).attr("id")
-    var designData = "/design_data/" + $(this).attr("id") + ".json"
+    var imgs       = url + "/image_data/get_imagefiles/" + id + ".text"
+    var crtIdURL   = url + "/image_data/get_currentId/" + id + ".text"
+    var designData = url + "/design_data/" + id + ".json"
 
     var currentId = 0
 
@@ -129,7 +130,7 @@ $(function () {
          );
 
         $("#gallery_imgs").html(
-          "      <a href=\"" + url + "\"><img src=\"" + url + "\" height=\"120px\"></a>\n"
+          "      <a href=\"" + thumburl + "\"><img src=\"" + thumburl + "\" height=\"120px\"></a>\n"
          );
 
         $("#input_filename").html(
@@ -232,10 +233,10 @@ $(document).ready(function () {
 $(function () {
   $("button.removeImages").click(function() {
     var id  = $(this).attr("id")
-    var url = "http://127.0.0.1:3000/image_data/get_removeImages/" + id
+    var url = "http://designax.nubee.jp/image_data/get_removeImages/" + id
 
-    alert(id);
-    alert(url);
+    //alert(id);
+    //alert(url);
     jQuery.get(url, function (mydata, mystatus){
       //alert(mydata);
       $("#delimages").html(mydata);
