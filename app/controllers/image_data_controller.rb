@@ -45,7 +45,7 @@ class ImageDataController < ApplicationController
                   "  <td class=\"design_td2\">\n"       +
                   "    <div class=\"imagetiledel\">\n"  +
                   "      <div class=\"removeImage\">\n" +
-                  "        <img alt=\"" + lp.to_s + "\" height=\"50px\" src=\"" + urlroot + "/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
+                  "        <img alt=\"" + lp.to_s + "\" height=\"56px\" src=\"" + urlroot + "/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
                   "      </div>\n" +
                   "      <span class=\"removeImageTxtTopLeft\"> デザイナー名 </span>" +
                   "      <span class=\"removeImageTxtTop\"> プロジェクト名 </span>" +
@@ -79,14 +79,14 @@ class ImageDataController < ApplicationController
     #image_data  = ImageDatum.find_all_by_file_name(design_data.file_name)
     
     filter = "file_name = ? and delflag = ?"
-    image_data = ImageDatum.where(filter, design_data.file_name, "0")
+    image_data = ImageDatum.where(filter, design_data.file_name, "0").order('seq_id desc')
     respond_to do |format|
       format.text {
         lp = 1
         image_data.each { |image|
           text = text + "<li>\n" +
-                        "    <a display=\"block\" height=\"50px\" href=\"" + urlroot + "/image_data/image/" + image.id.to_s + "\">\n" +
-                        "    <img alt=\"" + lp.to_s + "\" height=\"50px\" src=\"" + urlroot + "/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
+                        "    <a display=\"block\" height=\"56px\" href=\"" + urlroot + "/image_data/image/" + image.id.to_s + "\">\n" +
+                        "    <img alt=\"" + lp.to_s + "\" height=\"56px\" src=\"" + urlroot + "/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
                         "  </a>\n" +
                         "</li>"
           lp = lp + 1
