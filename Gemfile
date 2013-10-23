@@ -30,6 +30,7 @@ gem 'libv8', '~> 3.11.8.4', :platform => :ruby
 gem 'therubyracer', '0.11.0beta8', :platform => :ruby
 
 gem 'validates_timeliness', '~> 3.0'
+gem 'sass-rails',   '~> 3.2.3'
 
 group :development do
   gem 'html2haml'
@@ -39,11 +40,9 @@ group :development do
   gem 'rails-footnotes', '>=3.7.9'
 end
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'haml-rails'
 
@@ -62,10 +61,12 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano', :require => false
+gem 'capistrano-rails', :require => false
+gem 'capistrano-bundler'
 
 # To use debugger
 # gem 'debugger'
