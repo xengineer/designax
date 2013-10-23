@@ -60,6 +60,12 @@ module Designax
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.urlroot = 'http://127.0.0.1:3000'
+    if RAILS_ENV = 'production'
+      config.urlroot = 'http://designax.nubee.jp'
+    elsif RAILS_ENV = 'staging'
+      config.urlroot = 'http://127.0.0.1:3000'
+    elsif RAILS_ENV = 'development'
+      config.urlroot = 'http://127.0.0.1:3000'
+    end
   end
 end
