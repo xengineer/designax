@@ -9,16 +9,27 @@ Designax::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.compress = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
+
+  config.sass.preferred_syntax = :sass
+  config.sass.syntax = :sass
+
+  config.action_mailer.default_url_options = { :host => 'designax.nubee.jp' }
+
+  config.logger                 = Logger.new(config.paths["log"].first)
+  config.logger.formatter       = Logger::Formatter.new
+  config.logger.datetime_format = "%Y-%m-%d %H:%M:%S"
+  config.logger.level           = Logger::DEBUG
+  config.colorize_logging       = false
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
@@ -63,5 +74,5 @@ Designax::Application.configure do
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
-  # config.active_record.auto_explain_threshold_in_seconds = 0.5
+  config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
