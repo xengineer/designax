@@ -42,7 +42,7 @@ before_fork do |server, worker|
   # Using this method we get 0 downtime deploys.
 
   #pid '/tmp/test.pid'
-  old_pid = RAILS_ROOT + '/tmp/pids/unicorn.pid.oldbin'
+  old_pid = $rootdir + '/tmp/pids/unicorn.pid.oldbin'
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       # 古いマスターがいたら死んでもらう
