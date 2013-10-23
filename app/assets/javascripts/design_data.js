@@ -11,13 +11,40 @@ $(function () {
     var designData = url + "/design_data/" + id + ".json"
 
     var currentId = 0
+    var galleries = "";
 
-    jQuery.get(imgs, function (mydata, mystatus){
-      $("ul.ad-thumb-list").html(mydata);
+    jQuery.ajax({
+      type: "GET",
+      url: imgs,
+      datatype: "text",
+      success: function(mydata) {
+        $("ul.ad-thumb-list").html(mydata);
+        galleries = $('.ad-gallery').adGallery();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Error. Try again.");
+      },
+      complete: function(mydata) {
+        //alert("complete");
+      }
     });
 
-    jQuery.get(crtIdURL, function (mydata, mystatus){
-      currentId = mydata
+    jQuery.ajax({
+      type: "GET",
+      url: crtIdURL,
+      datatype: "text",
+      success: function(mydata) {
+        $("#imageid").html(
+          "<input type=\'hidden\' name=\"image_data_id\" value=\'" + mydata + "\'>\n"
+         );
+        $("input#updateData").prop('disabled', false);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Error. Try again.");
+      },
+      complete: function(mydata) {
+        //alert("complete");
+      }
     });
 
     jQuery.get(designData, function (mydata, mystatus){
@@ -89,44 +116,50 @@ $(function () {
 
       if(mydata.state_id == 1) {
         $("button#outline").addClass("active btn-primary");
+        $("#design_state").val(1);
       }
       else if(mydata.state_id == 2) {
         $("button#rough").addClass("active btn-primary");
+        $("#design_state").val(2);
       }
       else if(mydata.state_id == 3) {
         $("button#line").addClass("active btn-primary");
+        $("#design_state").val(3);
       }
       else if(mydata.state_id == 4) {
         $("button#color").addClass("active btn-primary");
+        $("#design_state").val(4);
       }
       else if(mydata.state_id == 5) {
         $("button#uppergrade").addClass("active btn-primary");
+        $("#design_state").val(5);
       }
       else if(mydata.state_id == 6) {
         $("button#flip").addClass("active btn-primary");
+        $("#design_state").val(6);
       }
       else if(mydata.state_id == 7) {
         $("button#others").addClass("active btn-primary");
+        $("#design_state").val(7);
       }
 
       if(mydata.corp_state_id == 1) {
         $("button#notchecked").addClass("active btn-primary");
+        $("#corp_state").val(1);
       }
       else if(mydata.corp_state_id == 2) {
         $("button#ok").addClass("active btn-primary");
+        $("#corp_state").val(2);
       }
       else if(mydata.corp_state_id == 3) {
         $("button#retake").addClass("active btn-primary");
+        $("#corp_state").val(3);
       }
 
       if ($("#bkg").css('visibility') == 'hidden') {
         $("#form_update").wrapInner(
           "<form accept-charset=\"UTF-8\" action=\"/design_data/" +id + "\"" +
           " class=\"edit_design_data\" enctype=\"multipart/form-data\" id=\"edit_design_data_" + id + "\"" + " method=\"post\" />\n"
-         );
-
-        $("#imageid").html(
-          "<input type=\'hidden\' name=\"image_data_id\" value=\'" + currentId + "\'>\n"
          );
 
         $("#gallery_imgs").html(
@@ -157,7 +190,6 @@ $(function () {
         $("#bkg").css("visibility", "");
         $("#bkg").hide();
       }
-      var galleries = $('.ad-gallery').adGallery();
 
       $(".design_state .btn#outline").click(function() {
         colorSelectedButton(".design_state .btn#outline", ".design_state .btn", "#design_state");
@@ -199,7 +231,6 @@ $(function () {
     });
 
     $("ul.ad-thumb-list").css("width", "600px");
-
   });
 });
 
@@ -235,20 +266,11 @@ $(function () {
     var id  = $(this).attr("id")
     var url = "http://designax.nubee.jp/image_data/get_removeImages/" + id
 
-    //alert(id);
-    //alert(url);
     jQuery.get(url, function (mydata, mystatus){
-      //alert(mydata);
       $("#delimages").html(mydata);
     });
 
     if ($("#bkg.deleteblk").css('visibility') == 'hidden') {
-      //$("#form_update").wrapInner(
-      //  "<form accept-charset=\"UTF-8\" action=\"/design_data/" +id + "\"" +
-      //  " class=\"edit_design_data\" enctype=\"multipart/form-data\" id=\"edit_design_data_" + id + "\"" + " method=\"post\" />\n"
-      // );
-
-      //$('input[name=authenticity_token]').val($('meta[name=csrf-token]').attr('content'));
         $("#form_delete").wrapInner(
           "<form accept-charset=\"UTF-8\" action=\"/image_data/" +id + "\"" +
           " class=\"delete_image_data\" enctype=\"multipart/form-data\" id=\"delete_image_data_" + id + "\"" + " method=\"POST\" />\n"
@@ -268,39 +290,6 @@ $(function () {
   });
 
 });
-
-/*
-$(function () {
-  $("button.removeImages").click(function() {
-    alert("aaaa");
-    var id  = $(this).attr("id")
-    var url = $(this).attr("url") + $(this).attr("thumb")
-    var imgs = "/image_data/" + $(this).attr("id")
-    var firstimg = "/image_data/get_firstfile/" + $(this).attr("id")
-    var designData = "/design_data/" + $(this).attr("id") + ".json"
-
-      if ($("#blg.deleteblk").css('visibility') == 'hidden') {
-        $("#form_update").wrapInner(
-          "<form accept-charset=\"UTF-8\" action=\"/design_data/" +id + "\"" +
-          " class=\"edit_design_data\" enctype=\"multipart/form-data\" id=\"edit_design_data_" + id + "\"" + " method=\"post\" />\n"
-         );
-
-        $('input[name=authenticity_token]').val($('meta[name=csrf-token]').attr('content'));
-
-        $("#blg.deleteblk").css("visibility", "");
-        $("#blg.deleteblk").hide();
-      }
-
-      if ($("#dlg.deletelists").css("visibility") == 'hidden') {
-        $("#dlg.deletelists").css("visibility", "");
-        $("#dlg.deletelists").hide();
-      }
-      $("#bkg.deleteblk").fadeIn(100, "linear", function () { $("#dlg.deletelists").show(100, "swing"); });
-    });
-
-  });
-});
-*/
 
 $(document).ready(function () {
   $("#xbtndel").click(function () {
