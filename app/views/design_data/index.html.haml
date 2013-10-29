@@ -103,10 +103,10 @@
             #input_corpcomment{:style => "height:120px"}
         %tr
           %td.design_td2
-            %input.input-medium{:placeholder => "削除コード"}
+            %input.input-medium{:placeholder => "未使用項目"}
         %tr
           %td.design_td2
-            %input{:type => "submit", :value => "削除"}
+            %input{:type => "submit", :value => "削除", :disabled => "disabled"}
 
 #bkg.deleteblk{:style => "visibility: hidden;"}
   #dlg.deletelists{:style => "visibility: hidden;"}
@@ -115,4 +115,4 @@
       %input{:type => "hidden", :name => "_method", :value => "put"}
       %input{:name => "authenticity_token", :type => "hidden", :value => ""}
       #delimages
-      %input{:type => "submit", :value => "削除"}
+      %input{:type => "submit", :value => "更新"}
