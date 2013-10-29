@@ -9,6 +9,7 @@ class DesignDataController < ApplicationController
   # GET /design_data
   # GET /design_data.json
   def index
+
     # index.html.haml表示用imagedata
     #@users = User.all
     @users = current_user.getUser()
