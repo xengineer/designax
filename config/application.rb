@@ -30,7 +30,7 @@ module Designax
     # config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.env.join('my', 'locales', '*.{rb,yml}').to_s]
+    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :ja
 
@@ -61,13 +61,12 @@ module Designax
     config.assets.version = '1.0'
 
     if Rails.env == 'production'
-      print "######################### production \n"
       config.urlroot = 'http://designax.nubee.jp'
     elsif Rails.env == 'staging'
-      print "######################### staging \n"
       config.urlroot == 'http://127.0.0.1:3000'
     elsif Rails.env == 'development'
-      print "######################### development \n"
+      config.urlroot = 'http://127.0.0.1:3000'
+    else
       config.urlroot = 'http://127.0.0.1:3000'
     end
   end
