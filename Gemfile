@@ -23,6 +23,7 @@ gem 'country_select'
 gem 'rails_config'
 gem 'mysql2'
 gem 'rmagick', "~> 2.13.1"
+gem 'kaminari'
 
 gem 'haml'
 gem 'execjs'
