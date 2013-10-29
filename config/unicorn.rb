@@ -18,7 +18,7 @@ $listen = 3000
 # ---- end of config ----
 
 # Main Config for Unicorn
-rails_env = ENV['Rails.root'] || $default_env
+rails_env = ENV['Rails.env'] || $default_env
 worker_processes (rails_env == 'production' ? $prod_processes : $dev_processes)
 preload_app true
 timeout $timeout
@@ -82,7 +82,7 @@ after_fork do |server, worker|
       Process::UID.change_privilege(target_uid)
     end
   rescue => e
-    if Rails.root == 'development'
+    if Rails.env == 'development'
       STDERR.puts "couldn't change user, oh well"
     else
       raise e
