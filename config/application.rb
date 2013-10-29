@@ -60,13 +60,13 @@ module Designax
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    if RAILS_ENV == 'production'
+    if Rails.root == 'production'
       print "######################### production \n"
       config.urlroot = 'http://designax.nubee.jp'
-    elsif RAILS_ENV == 'staging'
+    elsif Rails.root == 'staging'
       print "######################### staging \n"
       config.urlroot == 'http://127.0.0.1:3000'
-    elsif RAILS_ENV == 'development'
+    elsif Rails.root == 'development'
       print "######################### development \n"
       config.urlroot = 'http://127.0.0.1:3000'
     end
