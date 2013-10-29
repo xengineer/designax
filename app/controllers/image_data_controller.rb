@@ -157,22 +157,6 @@ class ImageDataController < ApplicationController
 
   # PUT /image_data/1
   # PUT /image_data/1.json
-  #def update
-  #  @image_datum = ImageDatum.find(params[:id])
-
-  #  respond_to do |format|
-  #    if @image_datum.update_attributes(params[:image_datum])
-  #      format.html { redirect_to @image_datum, notice: 'Image datum was successfully updated.' }
-  #      format.json { head :no_content }
-  #    else
-  #      format.html { render action: "edit" }
-  #      format.json { render json: @image_datum.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
- 
-  # PUT /image_data/1
-  # PUT /image_data/1.json
   def update
     delImageId = Array.new(0)
     updateIds = Hash.new
@@ -180,7 +164,6 @@ class ImageDataController < ApplicationController
     # :delete sends hash of delete requested ids
     # ids are of ImageData(not DesignData)
     updateIds = params[:delete]
-
     updateImage = ImageDatum.find(updateIds.keys)
 
     # for later use
@@ -188,7 +171,8 @@ class ImageDataController < ApplicationController
     # so it should be ok just to get from the 1st one
     file_name = updateImage[0].file_name
 
-    # if the value is 1, set the delflag
+    # if the updateIds value of image.id == 1,
+    # set the delflag(user wants to delete it)
     updateImage.each {|image|
       if updateIds[image.id.to_s] == "1"
         image.delflag = true
@@ -204,14 +188,20 @@ class ImageDataController < ApplicationController
     # その処理をする
     updateDesignData = DesignDatum.find_by_file_name(file_name)
     curSeq_id = updateDesignData.curSeq_id
-    if updateIds.value?(0)
-      recoverImage = ImageDatum.find_all_by_id_and_delflag(updateIds.keys, "0").order('seq_id DESC').limit(1)
-      if curSeq_id != recoverImage.seq_id
+
+    # updateIds に0がある場合(userが削除したくない画像がある場合)
+    if updateIds.has_value?("0")
+
+      # 削除されなくて、seq_id が一番大きいimage_data をselect
+      recoverImage = ImageDatum.find_all_by_id_and_delflag(updateIds.keys, "0", :order => "seq_id DESC", :limit => "1")
+
+      if curSeq_id != recoverImage[0].seq_id
         # image_dataの画像と、design_dataの画像は、thumbnailなら一緒！
-        updateDesignData.thumbnail = recoverImage.thumbnail
-        updateDesignData.curSeq_id = recoverImage.seq_id
-        updateDesignData.save!
+        updateDesignData.thumbnail = recoverImage[0].thumbnail
+        updateDesignData.curSeq_id = recoverImage[0].seq_id
       end
+      updateDesignData.delflag   = false
+      updateDesignData.save!
     else
       updateDesignData.delflag = true
       updateDesignData.save!
