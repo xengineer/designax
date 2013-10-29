@@ -3,6 +3,7 @@
 require 'RMagick'
 
 class DesignDatum < ActiveRecord::Base
+  paginates_per 50
   belongs_to :project
   belongs_to :state
   belongs_to :corp_state
@@ -80,7 +81,7 @@ class DesignDatum < ActiveRecord::Base
     return image.getImagesByFileName()
   end
 
-  def findIndexData(user, fltArtist, fltProject, fltState, fltCorpState, fltDelFlag)
+  def findIndexData(user, page, fltArtist, fltProject, fltState, fltCorpState, fltDelFlag)
     filter = ""
 
     if fltState.blank? and fltCorpState.blank?
@@ -105,7 +106,6 @@ class DesignDatum < ActiveRecord::Base
     when "artist"
       filter = filter + " and designer = ?"
       fltArtist = user.username
-      #design_data = DesignDatum.where(filter, fltState, fltCorpState, fltProject, fltDelFlag, user.username).order("deadline asc")
     when "manager", "admin"
       if !fltArtist.blank?
         filter = filter + " and designer = ?"
@@ -113,13 +113,12 @@ class DesignDatum < ActiveRecord::Base
         # エラー処理そのうち実装するかね・・・
 
         fltArtist = designer.username
-        #design_data = DesignDatum.where(filter, fltState, fltCorpState, fltProject, fltDelFlag, designer.username).order("deadline asc")
       else
         filter = filter + " and designer like ?"
         fltArtist   = "%"
       end
     end
-    design_data = DesignDatum.where(filter, fltState, fltCorpState, fltProject, fltDelFlag, fltArtist).order("deadline asc")
+    design_data = DesignDatum.where(filter, fltState, fltCorpState, fltProject, fltDelFlag, fltArtist).order("deadline asc").page(page)
 
     return design_data
   end

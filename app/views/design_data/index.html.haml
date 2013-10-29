@@ -35,8 +35,6 @@
     =collection_select :corp_state, :corp_state_id, @corp_states, :id, :state, prompt: "All check states", :selected => @fltCorpState
     %label.checkbox.inline
       %input{:type => "checkbox", :name => "delflag", :id => "delflag", :checked => @fltDelFlag} 削除データ
-  %br
-
 
   - @design_data.each do |design_datum|
     %div.imagetile
@@ -49,6 +47,10 @@
       %div.divrighttxt
         %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
 %br
+%br
+%br
+  %div.clear
+    = paginate @design_data
 
 #bkg.blockbkg{:style => "visibility: hidden;"}
   #dlg.dialog{:style => "visibility: hidden;"}

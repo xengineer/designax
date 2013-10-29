@@ -19,8 +19,9 @@ class DesignDataController < ApplicationController
     @fltState     = params[:filterState]
     @fltProject   = params[:filterProject]
     @fltDelFlag   = params[:filterDelete]
+    page          = params[:page]
     designData = DesignDatum.new
-    @design_data = designData.findIndexData(current_user, @fltArtist, @fltProject, @fltState, @fltCorpState, @fltDelFlag)
+    @design_data = designData.findIndexData(current_user, page, @fltArtist, @fltProject, @fltState, @fltCorpState, @fltDelFlag)
 
     # index.html.haml表示用URL
     @urlroot = Designax::Application.config.urlroot
