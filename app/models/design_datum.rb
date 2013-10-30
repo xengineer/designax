@@ -36,7 +36,7 @@ class DesignDatum < ActiveRecord::Base
   validates :project_id,
             :presence => {:message => "no project."},
             :numericality => {:only_integer => true, :greater_than => 0, :less_than => 1000, :message => " wrong project."}
-  validates_date :deadline, :after => :today
+  #validates_date :deadline, :after => :today
 
                  #:after_message => " must be set to future."
 

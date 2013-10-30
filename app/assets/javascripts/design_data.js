@@ -184,7 +184,7 @@ $(function () {
          );
 
         $("#input_comment").html(
-          "      <input class=\'input-medium\' name=\'design_datum[memo]\' placeholder=\'コメント\' value=\'test comment\'>\n"
+          "      <input class=\'input-medium\' name=\'design_datum[memo]\' placeholder=\'コメント\'>\n"
          );
 
         $("#bkg").css("visibility", "");
