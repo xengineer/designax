@@ -33,9 +33,7 @@ class ImageDatum < ActiveRecord::Base
   def setMembers(data)
     self.ctype     = data.thumbnail.content_type
     img            = Magick::Image.from_blob(data.thumbnail.read)
-    self.image     = img[0].change_geometry('x400') {|cols, rows, image|
-      image.resize!(cols, rows).to_blob
-    }
+    self.image     = img[0].to_blob
     self.thumbnail = img[0].thumbnail(0.3).to_blob
 
     self.seq_id    = data.curSeq_id
@@ -90,9 +88,9 @@ class ImageDatum < ActiveRecord::Base
 
   private
   def file_invalid?
-    ps = ['image/jpeg', 'image/gif', 'image/png']
+    ps = ['image/jpeg']
     errors.add(:image, 'is not an image file') if !ps.include?(self.ctype)
-    errors.add(:image, 'image file size exceeds 5MB') if self.image.size > 5.megabyte
-    errors.add(:image, 'thumbnail file size exceeds 5MB') if self.thumbnail.size > 5.megabyte
+    errors.add(:image, 'image file size exceeds 1.5MB') if self.image.size > 1.5.megabyte
+    errors.add(:image, 'thumbnail file size exceeds 1.5MB') if self.thumbnail.size > 1.5.megabyte
   end
 end

@@ -125,8 +125,8 @@ class DesignDatum < ActiveRecord::Base
 
   private
   def file_invalid?
-    ps = ['image/jpeg', 'image/gif', 'image/png']
+    ps = ['image/jpeg']
     errors.add(:image, 'is not an image file') if !ps.include?(self.ctype)
-    errors.add(:image, 'file size exceeds 5MB') if self.thumbnail.size > 5.megabyte
+    errors.add(:image, 'file size exceeds 1.5MB') if self.thumbnail.size > 1.5.megabyte
   end
 end
