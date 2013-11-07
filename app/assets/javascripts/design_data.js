@@ -17,17 +17,12 @@ $(function () {
       url: updateDlg,
       datatype: "text",
       success: function(mydata) {
-        for(var i in mydata)
-        {
-          $("ul.ad-thumb-list").html(mydata['imagefiles']);
-
-          $("#imageid").html(
-            "<input type=\'hidden\' name=\"image_data_id\" value=\'" + mydata['currentId'] + "\'>\n"
-           );
-          $("input#updateData").prop('disabled', false);
-
-        }
+        $("ul.ad-thumb-list").html(mydata['imagefiles']);
         galleries = $('.ad-gallery').adGallery();
+        $("#imageid").html(
+          "<input type=\'hidden\' name=\"image_data_id\" value=\'" + mydata['currentId'] + "\'>\n"
+         );
+        $("input#updateData").prop('disabled', false);
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         alert("Error. Try again.");
