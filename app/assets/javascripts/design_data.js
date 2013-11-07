@@ -6,8 +6,7 @@ $(function () {
     var url        = $(this).attr("url")
     var thumburl   = url + $(this).attr("thumb")
     var id         = $(this).attr("id")
-    var imgs       = url + "/image_data/get_imagefiles/" + id + ".text"
-    var crtIdURL   = url + "/image_data/get_currentId/" + id + ".text"
+    var updateDlg  = url + "/image_data/get_updateDlg/" + id + ".json"
     var designData = url + "/design_data/" + id + ".json"
 
     var currentId = 0
@@ -15,29 +14,20 @@ $(function () {
 
     jQuery.ajax({
       type: "GET",
-      url: imgs,
+      url: updateDlg,
       datatype: "text",
       success: function(mydata) {
-        $("ul.ad-thumb-list").html(mydata);
-        galleries = $('.ad-gallery').adGallery();
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-        alert("Error. Try again.");
-      },
-      complete: function(mydata) {
-        //alert("complete");
-      }
-    });
+        for(var i in mydata)
+        {
+          $("ul.ad-thumb-list").html(mydata['imagefiles']);
 
-    jQuery.ajax({
-      type: "GET",
-      url: crtIdURL,
-      datatype: "text",
-      success: function(mydata) {
-        $("#imageid").html(
-          "<input type=\'hidden\' name=\"image_data_id\" value=\'" + mydata + "\'>\n"
-         );
-        $("input#updateData").prop('disabled', false);
+          $("#imageid").html(
+            "<input type=\'hidden\' name=\"image_data_id\" value=\'" + mydata['currentId'] + "\'>\n"
+           );
+          $("input#updateData").prop('disabled', false);
+
+        }
+        galleries = $('.ad-gallery').adGallery();
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         alert("Error. Try again.");
@@ -179,9 +169,15 @@ $(function () {
           "      <textarea class=\'design_txtarea\' name=\"design_datum[design_comment]\" placeholder=\'デザイナーコメント欄\'>" + designComment + "</textarea>\n"
          );
 
-        $("#input_corpcomment").html(
-          "      <textarea class=\'design_txtarea\' name=\'design_datum[corp_comment]\' placeholder=\'企業側コメント欄\' height=\"140px\">" + corpComment + "</textarea>\n"
-         );
+        if(mydata['role'] == 'artist') {
+          $("#input_corpcomment").html(
+            "      <textarea readonly class=\'design_txtarea\' name=\'design_datum[corp_comment]\' placeholder=\'企業側コメント欄\' height=\"140px\">" + corpComment + "</textarea>\n"
+           );
+        } else {
+          $("#input_corpcomment").html(
+            "      <textarea class=\'design_txtarea\' name=\'design_datum[corp_comment]\' placeholder=\'企業側コメント欄\' height=\"140px\">" + corpComment + "</textarea>\n"
+           );
+        }
 
         $("#input_comment").html(
           "      <input class=\'input-medium\' name=\'design_datum[memo]\' placeholder=\'コメント\'>\n"

@@ -87,9 +87,14 @@
           %td.design_td{:width => "435px"}
             %input#corp_state{:name => "design_datum[corp_state_id]", :type => "hidden", :value => ""}
             .btn-group.check{"data-toggle" => "buttons-radio"}
-              %button#notchecked.btn{:type => "button", :value => "1"} 未確認
-              %button#ok.btn{:type => "button", :value => "2"} OK
-              %button#retake.btn{:type => "button", :value => "3"} リテイク
+              - if current_user.role == 'artist'
+                %button#notchecked.btn{:type => "button", :value => "1", :disabled => "disabled"} 未確認
+                %button#ok.btn{:type => "button", :value => "2", :disabled => "disabled"} OK
+                %button#retake.btn{:type => "button", :value => "3", :disabled => "disabled"} リテイク
+              - else
+                %button#notchecked.btn{:type => "button", :value => "1"} 未確認
+                %button#ok.btn{:type => "button", :value => "2"} OK
+                %button#retake.btn{:type => "button", :value => "3"} リテイク
           %td
             %input{:name => "_method", :type => "hidden", :value => "put"}
             %input#design_datum_thumbnail.file.optional{:name => "thumbnail", :type => "file"}

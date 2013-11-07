@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'RMagick'
+require 'json'
 
 class DesignDataController < ApplicationController
 
@@ -50,12 +51,14 @@ class DesignDataController < ApplicationController
   # GET /design_data/1.json
   def show
     @design_datum = DesignDatum.find(params[:id])
+    json_data = JSON.parse(@design_datum.to_json)
+    json_data['role'] = current_user.role
 
     respond_to do |format|
       format.html # show.html.erb
       format.json {
         @design_datum.thumbnail = ""
-        render json: @design_datum
+        render json: json_data
       }
     end
   end

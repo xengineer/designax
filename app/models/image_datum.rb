@@ -30,6 +30,36 @@ class ImageDatum < ActiveRecord::Base
 
   validate :file_invalid?
 
+  def self.get_imagefiles(id)
+    text = ""
+    urlroot = Designax::Application.config.urlroot
+    design_data = DesignDatum.find(id)
+    
+    filter = "file_name = ? and delflag = ?"
+    image_data = ImageDatum.where(filter, design_data.file_name, "0").order('seq_id desc')
+    lp = 1
+    image_data.each { |image|
+      text = text + "<li>\n" +
+                    "    <a display=\"block\" height=\"56px\" href=\"" + urlroot + "/image_data/image/" + image.id.to_s + "\">\n" +
+                    "    <img alt=\"" + lp.to_s + "\" height=\"56px\" src=\"" + urlroot + "/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity\\: 0.7;\">\n" +
+                    "  </a>\n" +
+                    "</li>"
+      lp = lp + 1
+    }
+    return text
+  end
+
+  def self.get_currentId(id)
+    design_data = DesignDatum.find(id)
+    image_data  = ImageDatum.find_by_file_name_and_seq_id(design_data.file_name, design_data.curSeq_id)
+    if image_data.nil?
+      print "image_data wa nil dayo.\n"
+      return -1
+    end
+    text = image_data.id.to_s
+    return text
+  end
+
   def setMembers(data)
     self.ctype     = data.thumbnail.content_type
     img            = Magick::Image.from_blob(data.thumbnail.read)
