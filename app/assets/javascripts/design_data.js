@@ -6,12 +6,49 @@ $(function () {
     var url        = $(this).attr("url")
     var thumburl   = url + $(this).attr("thumb")
     var id         = $(this).attr("id")
-    var updateDlg  = url + "/image_data/get_updateDlg/" + id + ".json"
+    //var updateDlg  = url + "/image_data/get_updateDlg/" + id + ".json"
+    var imgs       = url + "/image_data/get_imagefiles/" + id + ".text"
+    var crtIdURL   = url + "/image_data/get_currentId/" + id + ".text"
     var designData = url + "/design_data/" + id + ".json"
 
     var currentId = 0
     var galleries = "";
 
+    jQuery.ajax({
+      type: "GET",
+      url: imgs,
+      datatype: "text",
+      success: function(mydata) {
+        $("ul.ad-thumb-list").html(mydata);
+        galleries = $('.ad-gallery').adGallery();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Error. Try again.");
+      },
+      complete: function(mydata) {
+        //alert("complete");
+      }
+    });
+
+    jQuery.ajax({
+      type: "GET",
+      url: crtIdURL,
+      datatype: "text",
+      success: function(mydata) {
+        $("#imageid").html(
+          "<input type=\'hidden\' name=\"image_data_id\" value=\'" + mydata + "\'>\n"
+         );
+        $("input#updateData").prop('disabled', false);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Error. Try again.");
+      },
+      complete: function(mydata) {
+        //alert("complete");
+      }
+    });
+
+    /*
     jQuery.ajax({
       type: "GET",
       url: updateDlg,
@@ -31,6 +68,7 @@ $(function () {
         //alert("complete");
       }
     });
+    */
 
     jQuery.get(designData, function (mydata, mystatus){
 

@@ -6,6 +6,8 @@ Designax::Application.routes.draw do
   match 'image_data/get_removeImages/:id' => 'image_data#get_removeImages'
   match 'image_data/get_updateDlg/:id' => 'image_data#get_updateDlg'
   match 'image_data/get_firstfile/:id' => 'image_data#get_firstfile'
+  match 'image_data/get_imagefiles/:id' => 'image_data#get_imagefiles'
+  match 'image_data/get_currentId/:id' => 'image_data#get_currentId'
   resources :design_data
 
 
