@@ -142,15 +142,24 @@ class ImageDataController < ApplicationController
   end
 
   def show_thumbnail
-    @image_datum = ImageDatum.find(params[:id])
+    #@image_datum = ImageDatum.find(params[:id])
+    id = params[:id]
+ 
+    col = "thumbnail, ctype, file_name"
+    @image_datum = ImageDatum.where(["id = ?", id]).select(col).first
+
     fname = @image_datum.file_name + '_t.jpg'
     send_data @image_datum.thumbnail, :type => @image_datum.ctype, :disposition => 'inline', :filename => fname
   end
 
   def show_image
-    @image_datum = ImageDatum.find(params[:id])
+    #@image_datum = ImageDatum.find(params[:id])
+    id = params[:id]
+ 
+    col = "image, ctype, file_name"
+    @image_datum = ImageDatum.where(["id = ?", id]).select(col).first
     fname = @image_datum.file_name + '.jpg'
-    send_data @image_datum.image, :filename => fname + '.jpg', :type => @image_datum.ctype, :disposition => 'inline'
+    send_data @image_datum.image, :filename => fname, :type => @image_datum.ctype, :disposition => 'inline'
   end
 
   # GET /image_data/new
