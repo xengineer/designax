@@ -87,12 +87,14 @@ class ImageDataController < ApplicationController
 
   def show_thumbnail
     @image_datum = ImageDatum.find(params[:id])
-    send_data @image_datum.thumbnail, :type => @image_datum.ctype, :disposition => 'inline', :filename => 'thumbnail.jpg'
+    fname = @image_datum.file_name + '_t.jpg'
+    send_data @image_datum.thumbnail, :type => @image_datum.ctype, :disposition => 'inline', :filename => fname
   end
 
   def show_image
     @image_datum = ImageDatum.find(params[:id])
-    send_data @image_datum.image, :type => @image_datum.ctype, :disposition => 'inline'
+    fname = @image_datum.file_name + '.jpg'
+    send_data @image_datum.image, :filename => fname + '.jpg', :type => @image_datum.ctype, :disposition => 'inline'
   end
 
   # GET /image_data/new

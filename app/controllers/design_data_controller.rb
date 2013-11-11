@@ -67,12 +67,14 @@ class DesignDataController < ApplicationController
   # GET /design_data/1.json
   def show_image
     @design_datum = DesignDatum.find(params[:id])
-    send_data @design_datum.image,     :type => @design_datum.ctype, :disposition => 'attachment', :filename => 'original.jpg'
+    fname = @design_datum.file_name + '.jpg'
+    send_data @design_datum.image,     :type => @design_datum.ctype, :disposition => 'attachment', :filename => fname
   end
 
   def show_thumbnail
     @design_datum = DesignDatum.find(params[:id])
-    send_data @design_datum.thumbnail, :type => @design_datum.ctype, :disposition => 'attachment', :filename => 'thumbnail.jpg'
+    fname = @design_datum.file_name + '_t.jpg'
+    send_data @design_datum.thumbnail, :type => @design_datum.ctype, :disposition => 'attachment', :filename => fname
   end
 
   def get_designdata
