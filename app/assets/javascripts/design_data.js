@@ -54,34 +54,46 @@ $(function () {
       datatype: "text",
       success: function(mydata) {
 
+        var corpComment   = ""
+        var designComment = ""
+        var deadline      = ""
+        var year          = ""
+        var month         = ""
+        var day           = ""
+        var yearhtml      = ""
+        var monthhtml     = ""
+        var dayhtml       = ""
+        var file_name     = ""
+
         if(mydata.design_comment) {
-          var designComment = mydata.design_comment
+          designComment = mydata.design_comment
         } else {
-          var designComment = ""
+          designComment = ""
         }
   
         if(mydata.corp_comment) {
-          var corpComment   = mydata.corp_comment
+          corpComment   = mydata.corp_comment
         } else {
-          var corpComment   = ""
+          corpComment   = ""
         }
   
         if(mydata.deadline) {
-          var deadline = mydata.deadline.split("-")
-          var year  = deadline[0];
-          var month = deadline[1];
-          var day   = deadline[2];
+          deadline = mydata.deadline.split("-")
+          year  = deadline[0];
+          month = deadline[1];
+          day   = deadline[2];
         }
         else {
-          var today = new Date();
-          var year  = today.getFullYear();
-          var month = today.getMonth() + 1;
-          var day   = today.getDate();
+          today = new Date();
+          year  = today.getFullYear();
+          month = today.getMonth() + 1;
+          day   = today.getDate();
         }
   
-        var yearhtml  = "<select id=\"design_datum_deadline_1i\" name=\"design_datum[deadline(1i)]\" style=\"width: 30%\">\n";
-        var monthhtml = "<select id=\"design_datum_deadline_2i\" name=\"design_datum[deadline(2i)]\" style=\"width: 30%\">\n";
-        var dayhtml   = "<select id=\"design_datum_deadline_3i\" name=\"design_datum[deadline(3i)]\" style=\"width: 30%\">\n";
+        yearhtml  = "<select id=\"design_datum_deadline_1i\" name=\"design_datum[deadline(1i)]\" style=\"width: 30%\">\n";
+        monthhtml = "<select id=\"design_datum_deadline_2i\" name=\"design_datum[deadline(2i)]\" style=\"width: 30%\">\n";
+        dayhtml   = "<select id=\"design_datum_deadline_3i\" name=\"design_datum[deadline(3i)]\" style=\"width: 30%\">\n";
+
         for(var i = year; i <= year + 6; i++) {
           if(i == year) {
             yearhtml += "<option selected=\"selected\" value=\"" + i + "\">" + i + "</option>\n"
@@ -113,9 +125,9 @@ $(function () {
         var deadlinehtml = "納期:" + yearhtml + monthhtml+ dayhtml;
   
         if(mydata.file_name) {
-          var file_name = "value=\"" + mydata.file_name + "\""
+          file_name = "value=\"" + mydata.file_name + "\""
         } else {
-          var file_name = ""
+          file_name = ""
         }
   
         if(mydata.state_id == 1) {
