@@ -81,9 +81,7 @@ class ImageDatum < ActiveRecord::Base
     if imgdat
       self.ctype     = imgdat.content_type
       img            = Magick::Image.from_blob(imgdat.read)
-      self.image     = img[0].change_geometry('x400') {|cols, rows, image|
-        image.resize(cols, rows).to_blob
-      }
+      self.image     = img[0].to_blob
       self.thumbnail = img[0].thumbnail(0.3).to_blob
     end
     imgdat.rewind
