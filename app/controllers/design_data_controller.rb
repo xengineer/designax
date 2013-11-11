@@ -50,14 +50,16 @@ class DesignDataController < ApplicationController
   # GET /design_data/1
   # GET /design_data/1.json
   def show
-    @design_datum = DesignDatum.find(params[:id])
+    id = params[:id]
+
+    col = "id, project_id, state_id, corp_state_id, corp_comment, ctype, curSeq_id, design_comment, designer, file_name, memo, deadline"
+    @design_datum = DesignDatum.where(["id = ?", id]).select(col).first
     json_data = JSON.parse(@design_datum.to_json)
     json_data['role'] = current_user.role
 
     respond_to do |format|
       format.html # show.html.erb
       format.json {
-        @design_datum.thumbnail = ""
         render json: json_data
       }
     end
