@@ -52,7 +52,7 @@ class DesignDataController < ApplicationController
   def show
     id = params[:id]
 
-    col = "id, project_id, state_id, corp_state_id, corp_comment, ctype, curSeq_id, design_comment, designer, file_name, memo, deadline"
+    col = "state_id, corp_state_id, corp_comment, design_comment, file_name, deadline"
     @design_datum = DesignDatum.where(["id = ?", id]).select(col).first
     json_data = JSON.parse(@design_datum.to_json)
     json_data['role'] = current_user.role
@@ -161,7 +161,6 @@ class DesignDataController < ApplicationController
       @image_datum = ImageDatum.new
       @design_datum.setImage(thumb)
       d.curSeq_id  = @design_datum.curSeq_id + 1
-      d.state_id  = @design_datum.state_id
       d.project_id = @design_datum.project_id
       @image_datum.setImage(thumb)
     # こっちは既存レコードの納期とか状態を更新する
