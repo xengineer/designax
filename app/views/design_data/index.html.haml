@@ -17,12 +17,12 @@
     %tr
       %th 納期
       %th 状態(絵の)
-      %th 企業側チェック状況
+      %th キャラクター名
     %tr
       %span
         %td= f.date_select :deadline, options = {:start_year => Time.now.year, :use_month_numbers => true}, :style => "width: 30%"
       %td= f.collection_select :state_id, @states, :id, :state
-      %td= f.collection_select :corp_state_id, @corp_states, :id, :state
+      %td= f.input_field :chara_name
 
   %br
   .formactions
