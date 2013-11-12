@@ -91,7 +91,7 @@ $(function () {
           day   = deadline[2];
         }
         else {
-          today = new Date();
+          var today = new Date();
           year  = today.getFullYear();
           month = today.getMonth() + 1;
           day   = today.getDate();
@@ -137,133 +137,12 @@ $(function () {
           file_name = ""
         }
   
-        if(mydata.state_id == 1) {
-          $("button#outline").addClass("active btn-primary");
-          $("#design_state").val(1);
-        }
-        else if(mydata.state_id == 2) {
-          $("button#rough").addClass("active btn-primary");
-          $("#design_state").val(2);
-        }
-        else if(mydata.state_id == 3) {
-          $("button#line").addClass("active btn-primary");
-          $("#design_state").val(3);
-        }
-        else if(mydata.state_id == 4) {
-          $("button#color").addClass("active btn-primary");
-          $("#design_state").val(4);
-        }
-        else if(mydata.state_id == 5) {
-          $("button#uppergrade").addClass("active btn-primary");
-          $("#design_state").val(5);
-        }
-        else if(mydata.state_id == 6) {
-          $("button#flip").addClass("active btn-primary");
-          $("#design_state").val(6);
-        }
-        else if(mydata.state_id == 7) {
-          $("button#colchange").addClass("active btn-primary");
-          $("#design_state").val(7);
-        }
-        else if(mydata.state_id == 8) {
-          $("button#others").addClass("active btn-primary");
-          $("#design_state").val(8);
-        }
+        showDesignState(mydata.state_id);
+        showCorpState(mydata.corp_state_id);
+        setStateSelected();
+        setCorpStateSelected();
+        showUpdateDialog(id, thumburl, file_name, deadlinehtml, designComment, corpComment, chara_name, mydata['role']);
   
-        if(mydata.corp_state_id == 1) {
-          $("button#notchecked").addClass("active btn-primary");
-          $("#corp_state").val(1);
-        }
-        else if(mydata.corp_state_id == 2) {
-          $("button#ok").addClass("active btn-primary");
-          $("#corp_state").val(2);
-        }
-        else if(mydata.corp_state_id == 3) {
-          $("button#retake").addClass("active btn-primary");
-          $("#corp_state").val(3);
-        }
-  
-        if ($("#bkg").css('visibility') == 'hidden') {
-          $("#form_update").wrapInner(
-            "<form accept-charset=\"UTF-8\" action=\"/design_data/" +id + "\"" +
-            " class=\"edit_design_data\" enctype=\"multipart/form-data\" id=\"edit_design_data_" + id + "\"" + " method=\"post\" />\n"
-           );
-  
-          $("#gallery_imgs").html(
-            "      <a href=\"" + thumburl + "\"><img src=\"" + thumburl + "\" height=\"120px\"></a>\n"
-           );
-  
-          $("#input_filename").html(
-            "      <input class=\'input-medium\' name=\"design_datum[file_name]\"  placeholder=\'ファイル名\'" + file_name  + ">\n"
-           );
-  
-          $('input[name=authenticity_token]').val($('meta[name=csrf-token]').attr('content'));
-  
-  
-          $("span#input_deadline").html(deadlinehtml);
-  
-          $("#input_designcomment").html(
-            "      <textarea class=\'design_txtarea\' name=\"design_datum[design_comment]\" placeholder=\'デザイナーコメント欄\'>" + designComment + "</textarea>\n"
-           );
-  
-          if(mydata['role'] == 'artist') {
-            $("#input_corpcomment").html(
-              "      <textarea readonly class=\'design_txtarea\' name=\'design_datum[corp_comment]\' placeholder=\'企業側コメント欄\' height=\"140px\">" + corpComment + "</textarea>\n"
-             );
-          } else {
-            $("#input_corpcomment").html(
-              "      <textarea class=\'design_txtarea\' name=\'design_datum[corp_comment]\' placeholder=\'企業側コメント欄\' height=\"140px\">" + corpComment + "</textarea>\n"
-             );
-          }
-  
-          $("#input_charaname").html(
-            "      <input class=\'input-medium\' name=\'design_datum[chara_name]\' placeholder=\'キャラ名\' value=\'" + chara_name + "\'>\n"
-           );
-  
-          $("#bkg").css("visibility", "");
-          $("#bkg").hide();
-        }
-  
-        $(".design_state .btn#outline").click(function() {
-          colorSelectedButton(".design_state .btn#outline", ".design_state .btn", "#design_state");
-        });
-        $(".design_state .btn#rough").click(function() {
-          colorSelectedButton(".design_state .btn#rough", ".design_state .btn", "#design_state");
-        });
-        $(".design_state .btn#line").click(function() {
-          colorSelectedButton(".design_state .btn#line", ".design_state .btn", "#design_state");
-        });
-        $(".design_state .btn#color").click(function() {
-          colorSelectedButton(".design_state .btn#color", ".design_state .btn", "#design_state");
-        });
-        $(".design_state .btn#uppergrade").click(function() {
-          colorSelectedButton(".design_state .btn#uppergrade", ".design_state .btn", "#design_state");
-        });
-        $(".design_state .btn#flip").click(function() {
-          colorSelectedButton(".design_state .btn#flip", ".design_state .btn", "#design_state");
-        });
-        $(".design_state .btn#colchange").click(function() {
-          colorSelectedButton(".design_state .btn#colchange", ".design_state .btn", "#design_state");
-        });
-        $(".design_state .btn#others").click(function() {
-          colorSelectedButton(".design_state .btn#others", ".design_state .btn", "#design_state");
-        });
-  
-        $(".check .btn#notchecked").click(function() {
-          colorSelectedButton(".check .btn#notchecked", ".check .btn", "#corp_state");
-        });
-        $(".check .btn#retake").click(function() {
-          colorSelectedButton(".check .btn#retake", ".check .btn", "#corp_state");
-        });
-        $(".check .btn#ok").click(function() {
-          colorSelectedButton(".check .btn#ok", ".check .btn", "#corp_state");
-        });
-  
-        if ($("#dlg").css("visibility") == 'hidden') {
-          $("#dlg").css("visibility", "");
-          $("#dlg").hide();
-        }
-        $("#bkg").fadeIn(100, "linear", function () { $("#dlg").show(100, "swing"); });
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         alert("Error. Try again.");
@@ -278,21 +157,11 @@ $(function () {
 });
 
 $(function () {
-  $("select#user_user_id").change(function() {
-    openFilteredIndex();
-  });
-  $("select#corp_state_corp_state_id").change(function() {
-    openFilteredIndex();
-  });
-  $("select#state_state_id").change(function() {
-    openFilteredIndex();
-  });
-  $("select#project_project_id").change(function() {
-    openFilteredIndex();
-  });
-  $("input#delflag").change(function() {
-    openFilteredIndex();
-  });
+  $("select#user_user_id").change(function() { openFilteredIndex(); });
+  $("select#corp_state_corp_state_id").change(function() { openFilteredIndex(); });
+  $("select#state_state_id").change(function() { openFilteredIndex(); });
+  $("select#project_project_id").change(function() { openFilteredIndex(); });
+  $("input#delflag").change(function() { openFilteredIndex(); });
 });
 
 $(document).ready(function () {
@@ -307,7 +176,7 @@ $(document).ready(function () {
 $(function () {
   $("button.removeImages").click(function() {
     var id  = $(this).attr("id")
-    var url = "http://designax.nubee.jp/image_data/get_removeImages/" + id
+    var url = "http://127.0.0.1:3000/image_data/get_removeImages/" + id
 
     jQuery.get(url, function (mydata, mystatus){
       $("#delimages").html(mydata);
@@ -369,21 +238,11 @@ function openFilteredIndex() {
   var url       = protocol + "//" + host + "?";
   var notFirst  = false;
 
-  if(project) {
-    url = url + "filterProject="   + project + "&";
-  }
-  if(state) {
-    url = url + "filterState="     + state + "&";
-  }
-  if(corpstate) {
-    url = url + "filterCorpState=" + corpstate + "&";
-  }
-  if(userid) {
-    url = url + "filterArtist="    + userid + "&";
-  }
-  if(delflag) {
-    url = url + "filterDelete="    + delflag + "&";
-  }
+  if(project)   { url = url + "filterProject="   + project   + "&"; }
+  if(state)     { url = url + "filterState="     + state     + "&"; }
+  if(corpstate) { url = url + "filterCorpState=" + corpstate + "&"; }
+  if(userid)    { url = url + "filterArtist="    + userid    + "&"; }
+  if(delflag)   { url = url + "filterDelete="    + delflag   + "&"; }
   url = url.replace(/&$/, "")
   location.href = url
 }
@@ -393,4 +252,91 @@ function colorSelectedButton(clickedBtn, otherBtns, hidden) {
   $(otherBtns).not(clickedBtn).removeClass("btn-primary");
   var checkval = $(clickedBtn).val();
   $(hidden).val(checkval);
+} 
+
+function showDesignState(state_id) {
+  if(state_id == 1)      { $("button#outline").addClass("active btn-primary"); }
+  else if(state_id == 2) { $("button#rough").addClass("active btn-primary"); }
+  else if(state_id == 3) { $("button#line").addClass("active btn-primary"); }
+  else if(state_id == 4) { $("button#color").addClass("active btn-primary"); }
+  else if(state_id == 5) { $("button#uppergrade").addClass("active btn-primary"); }
+  else if(state_id == 6) { $("button#flip").addClass("active btn-primary"); }
+  else if(state_id == 7) { $("button#colchange").addClass("active btn-primary"); }
+  else if(state_id == 8) { $("button#others").addClass("active btn-primary"); }
+  $("#design_state").val(state_id);
+} 
+  
+function showCorpState(corp_state_id) {
+  if(corp_state_id == 1)      { $("button#notchecked").addClass("active btn-primary"); }
+  else if(corp_state_id == 2) { $("button#ok").addClass("active btn-primary"); }
+  else if(corp_state_id == 3) { $("button#retake").addClass("active btn-primary"); }
+  $("#corp_state").val(corp_state_id);
+}
+
+function setStateSelected() {
+  $(".design_state .btn#outline").click(function()    { colorSelectedButton(".design_state .btn#outline"   , ".design_state .btn", "#design_state"); });
+  $(".design_state .btn#rough").click(function()      { colorSelectedButton(".design_state .btn#rough"     , ".design_state .btn", "#design_state"); });
+  $(".design_state .btn#line").click(function()       { colorSelectedButton(".design_state .btn#line"      , ".design_state .btn", "#design_state"); });
+  $(".design_state .btn#color").click(function()      { colorSelectedButton(".design_state .btn#color"     , ".design_state .btn", "#design_state"); });
+  $(".design_state .btn#uppergrade").click(function() { colorSelectedButton(".design_state .btn#uppergrade", ".design_state .btn", "#design_state"); });
+  $(".design_state .btn#flip").click(function()       { colorSelectedButton(".design_state .btn#flip"      , ".design_state .btn", "#design_state"); });
+  $(".design_state .btn#colchange").click(function()  { colorSelectedButton(".design_state .btn#colchange" , ".design_state .btn", "#design_state"); });
+  $(".design_state .btn#others").click(function()     { colorSelectedButton(".design_state .btn#others"    , ".design_state .btn", "#design_state"); });
+}
+
+function setCorpStateSelected() {
+  $(".check .btn#notchecked").click(function() { colorSelectedButton(".check .btn#notchecked", ".check .btn", "#corp_state"); });
+  $(".check .btn#retake").click(function()     { colorSelectedButton(".check .btn#retake"    , ".check .btn", "#corp_state"); });
+  $(".check .btn#ok").click(function()         { colorSelectedButton(".check .btn#ok"        , ".check .btn", "#corp_state"); });
+}
+
+function showUpdateDialog(id, thumburl, file_name, deadlinehtml, designComment, corpComment, chara_name, role) {
+
+  if ($("#bkg").css('visibility') == 'hidden') {
+    $("#form_update").wrapInner(
+      "<form accept-charset=\"UTF-8\" action=\"/design_data/" +id + "\"" +
+      " class=\"edit_design_data\" enctype=\"multipart/form-data\" id=\"edit_design_data_" + id + "\"" + " method=\"post\" />\n"
+     );
+
+    $("#gallery_imgs").html(
+      "      <a href=\"" + thumburl + "\"><img src=\"" + thumburl + "\" height=\"120px\"></a>\n"
+     );
+
+    $("#input_filename").html(
+      "      <input class=\'input-medium\' name=\"design_datum[file_name]\"  placeholder=\'ファイル名\'" + file_name  + ">\n"
+     );
+
+    $('input[name=authenticity_token]').val($('meta[name=csrf-token]').attr('content'));
+
+
+    $("span#input_deadline").html(deadlinehtml);
+
+    $("#input_designcomment").html(
+      "      <textarea class=\'design_txtarea\' name=\"design_datum[design_comment]\" placeholder=\'デザイナーコメント欄\'>" + designComment + "</textarea>\n"
+     );
+
+    if(role == 'artist') {
+      $("#input_corpcomment").html(
+        "      <textarea readonly class=\'design_txtarea\' name=\'design_datum[corp_comment]\' placeholder=\'企業側コメント欄\' height=\"140px\">" + corpComment + "</textarea>\n"
+       );
+    } else {
+      $("#input_corpcomment").html(
+        "      <textarea class=\'design_txtarea\' name=\'design_datum[corp_comment]\' placeholder=\'企業側コメント欄\' height=\"140px\">" + corpComment + "</textarea>\n"
+       );
+    }
+
+    $("#input_charaname").html(
+      "      <input class=\'input-medium\' name=\'design_datum[chara_name]\' placeholder=\'キャラ名\' value=\'" + chara_name + "\'>\n"
+     );
+
+    $("#bkg").css("visibility", "");
+    $("#bkg").hide();
+  }
+
+  if ($("#dlg").css("visibility") == 'hidden') {
+    $("#dlg").css("visibility", "");
+    $("#dlg").hide();
+  }
+  $("#bkg").fadeIn(100, "linear", function () { $("#dlg").show(100, "swing"); });
+
 }

@@ -75,18 +75,6 @@ class ImageDatum < ActiveRecord::Base
     data.thumbnail.rewind
   end
 
-  # imgdatをgeometry変更して imageとして設定して、
-  # thumbnailにも設定する
-  def setImage(imgdat)
-    if imgdat
-      self.ctype     = imgdat.content_type
-      img            = Magick::Image.from_blob(imgdat.read)
-      self.image     = img[0].to_blob
-      self.thumbnail = img[0].thumbnail(0.3).to_blob
-    end
-    imgdat.rewind
-  end
-
   def updateMembers(data)
 
     self.seq_id     = data.curSeq_id if data.curSeq_id
@@ -95,14 +83,6 @@ class ImageDatum < ActiveRecord::Base
     self.project_id = data.project_id
     self.state_id   = data.state_id
 
-  end
-
-  def setDelFlag(delImageId, delDesignId)
-
-    delImage = ImageDatum.find(delImageId)
-    delImage.each {|image|
-      print "@@@@@@@@@@@@@@@@@@@@image:" + image.file_name + "\n"
-    }
   end
 
   def getCurrentImageByFileName(id)

@@ -53,8 +53,8 @@
         %div.divrighttxt= design_datum.project.project_name
         %div.divrighttxt= design_datum.deadline
         %div.divrighttxt= design_datum.chara_name
-        %div.divrighttxt= design_datum.designer
         %div.divrighttxt= design_datum.file_name
+        %div.divrighttxt= design_datum.designer
         %div.divrighttxt
           %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
     - elsif design_datum.corp_state.state == "OK"

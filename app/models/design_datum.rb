@@ -71,20 +71,13 @@ class DesignDatum < ActiveRecord::Base
     #image.rewind
   end
 
-  def setImage(imgdat)
-    img                 = Magick::Image.from_blob(imgdat.read)
-    self.thumbnail      = img[0].thumbnail(0.3).to_blob
-    imgdat.rewind
-    self.curSeq_id = self.curSeq_id + 1
-  end
-
   def getImagesByFileName()
     image = ImageDatum.new()
     image.file_name = self.file_name
     return image.getImagesByFileName()
   end
 
-  def findIndexData(user, page, fltArtist, fltProject, fltState, fltCorpState, fltDelFlag)
+  def self.findIndexData(user, page, fltArtist, fltProject, fltState, fltCorpState, fltDelFlag)
     filter = ""
 
     if fltState.blank? and fltCorpState.blank?

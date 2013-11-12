@@ -11,18 +11,15 @@ class DesignDataController < ApplicationController
   # GET /design_data.json
   def index
 
-    # index.html.haml表示用imagedata
-    #@users = User.all
     @users = current_user.getUser()
-
     @fltArtist    = params[:filterArtist]
     @fltCorpState = params[:filterCorpState]
     @fltState     = params[:filterState]
     @fltProject   = params[:filterProject]
     @fltDelFlag   = params[:filterDelete]
     page          = params[:page]
-    designData = DesignDatum.new
-    @design_data = designData.findIndexData(current_user, page, @fltArtist, @fltProject, @fltState, @fltCorpState, @fltDelFlag)
+
+    @design_data = DesignDatum::findIndexData(current_user, page, @fltArtist, @fltProject, @fltState, @fltCorpState, @fltDelFlag)
 
     # index.html.haml表示用URL
     @urlroot = Designax::Application.config.urlroot
@@ -34,12 +31,6 @@ class DesignDataController < ApplicationController
     @states = State.all
     @corp_states = CorpState.all
     @projects = Project.all
-
-    if @fltDelFlag == "true"
-      @fltDelFlag == "checked"
-    else
-      @fltDelFlag == ""
-    end
 
     respond_to do |format|
       format.html # index.html.erb
