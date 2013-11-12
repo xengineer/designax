@@ -29,7 +29,7 @@ class DesignDatum < ActiveRecord::Base
             :numericality => {:only_integer => true, :greater_than => 0, :less_than => 50, :message => " wrong sequence id."}
   validates :state_id,
             :presence => {:message => "no state."},
-            :numericality => {:only_integer => true, :greater_than => 0, :less_than => 8, :message => " wrong state."}
+            :numericality => {:only_integer => true, :greater_than => 0, :less_than => 9, :message => " wrong state."}
   validates :corp_state_id,
             :presence => {:message => "no corp_state or corp_state not right."},
             :numericality => {:only_integer => true, :greater_than => 0, :less_than => 4, :message => " wrong corp_state."}
@@ -89,7 +89,7 @@ class DesignDatum < ActiveRecord::Base
 
     if fltState.blank? and fltCorpState.blank?
       filter       = "not (state_id = ? and corp_state_id = ?) and project_id like ? and delflag = ?"
-      fltState     = "7"
+      fltState     = "8"
       fltCorpState = "2"
     else
       filter = "state_id like ? and corp_state_id like ? and project_id like ? and delflag = ?"

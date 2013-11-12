@@ -162,8 +162,12 @@ $(function () {
           $("#design_state").val(6);
         }
         else if(mydata.state_id == 7) {
-          $("button#others").addClass("active btn-primary");
+          $("button#colchange").addClass("active btn-primary");
           $("#design_state").val(7);
+        }
+        else if(mydata.state_id == 8) {
+          $("button#others").addClass("active btn-primary");
+          $("#design_state").val(8);
         }
   
         if(mydata.corp_state_id == 1) {
@@ -237,6 +241,9 @@ $(function () {
         });
         $(".design_state .btn#flip").click(function() {
           colorSelectedButton(".design_state .btn#flip", ".design_state .btn", "#design_state");
+        });
+        $(".design_state .btn#colchange").click(function() {
+          colorSelectedButton(".design_state .btn#colchange", ".design_state .btn", "#design_state");
         });
         $(".design_state .btn#others").click(function() {
           colorSelectedButton(".design_state .btn#others", ".design_state .btn", "#design_state");
