@@ -33,6 +33,8 @@ gem 'therubyracer', '0.11.0beta8', :platform => :ruby
 gem 'validates_timeliness', '~> 3.0'
 gem 'sass-rails',   '~> 3.2.3'
 
+gem 'newrelic_rpm'
+
 group :development do
   gem 'html2haml'
   gem 'erb2haml'
