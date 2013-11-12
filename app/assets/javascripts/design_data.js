@@ -2,7 +2,7 @@
 //ul.ad-thumb-listにgetImagesByFileNameの画像をappendしてからダイアログ表示
 
 $(function () {
-  $(".imagetile .divleftimage img").click(function() {
+  $(".divleftimage img").click(function() {
     var url        = $(this).attr("url")
     var thumburl   = url + $(this).attr("thumb")
     var id         = $(this).attr("id")

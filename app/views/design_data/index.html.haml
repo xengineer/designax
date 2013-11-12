@@ -37,15 +37,46 @@
       %input{:type => "checkbox", :name => "delflag", :id => "delflag", :checked => @fltDelFlag} 削除データ
 
   - @design_data.each do |design_datum|
-    %div.imagetile
-      %div.divleftimage= image_tag(url_for(:action => 'show_thumbnail', :id => design_datum), :id => design_datum.id, :thumb => url_for(:action => 'show_thumbnail', :id => design_datum), :url => @urlroot)
-      %div.divrighttxt= design_datum.project.project_name
-      %div.divrighttxt= design_datum.designer
-      %div.divrighttxt= design_datum.file_name
-      %div.divrighttxt= design_datum.deadline
-      %div.divrighttxt= design_datum.memo
-      %div.divrighttxt
-        %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
+    - if design_datum.corp_state.state == "未確認"
+      %div.imagetile_notchecked
+        %div.divleftimage= image_tag(url_for(:action => 'show_thumbnail', :id => design_datum), :id => design_datum.id, :thumb => url_for(:action => 'show_thumbnail', :id => design_datum), :url => @urlroot)
+        %div.divrighttxt= design_datum.project.project_name
+        %div.divrighttxt= design_datum.designer
+        %div.divrighttxt= design_datum.file_name
+        %div.divrighttxt= design_datum.deadline
+        %div.divrighttxt= design_datum.memo
+        %div.divrighttxt
+          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
+    - elsif design_datum.corp_state.state == "RE"
+      %div.imagetile_retake
+        %div.divleftimage= image_tag(url_for(:action => 'show_thumbnail', :id => design_datum), :id => design_datum.id, :thumb => url_for(:action => 'show_thumbnail', :id => design_datum), :url => @urlroot)
+        %div.divrighttxt= design_datum.project.project_name
+        %div.divrighttxt= design_datum.designer
+        %div.divrighttxt= design_datum.file_name
+        %div.divrighttxt= design_datum.deadline
+        %div.divrighttxt= design_datum.memo
+        %div.divrighttxt
+          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
+    - elsif design_datum.corp_state.state == "OK"
+      %div.imagetile_ok
+        %div.divleftimage= image_tag(url_for(:action => 'show_thumbnail', :id => design_datum), :id => design_datum.id, :thumb => url_for(:action => 'show_thumbnail', :id => design_datum), :url => @urlroot)
+        %div.divrighttxt= design_datum.project.project_name
+        %div.divrighttxt= design_datum.designer
+        %div.divrighttxt= design_datum.file_name
+        %div.divrighttxt= design_datum.deadline
+        %div.divrighttxt= design_datum.memo
+        %div.divrighttxt
+          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
+    - else
+      %div.imagetile_notchecked
+        %div.divleftimage= image_tag(url_for(:action => 'show_thumbnail', :id => design_datum), :id => design_datum.id, :thumb => url_for(:action => 'show_thumbnail', :id => design_datum), :url => @urlroot)
+        %div.divrighttxt= design_datum.project.project_name
+        %div.divrighttxt= design_datum.designer
+        %div.divrighttxt= design_datum.file_name
+        %div.divrighttxt= design_datum.deadline
+        %div.divrighttxt= design_datum.memo
+        %div.divrighttxt
+          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
 %br
 %br
 %br
