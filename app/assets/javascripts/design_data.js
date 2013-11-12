@@ -64,11 +64,18 @@ $(function () {
         var monthhtml     = ""
         var dayhtml       = ""
         var file_name     = ""
+        var chara_name    = ""
 
         if(mydata.design_comment) {
           designComment = mydata.design_comment
         } else {
           designComment = ""
+        }
+
+        if(mydata.chara_name) {
+          chara_name   = mydata.chara_name
+        } else {
+          chara_name   = ""
         }
   
         if(mydata.corp_comment) {
@@ -205,8 +212,8 @@ $(function () {
              );
           }
   
-          $("#input_comment").html(
-            "      <input class=\'input-medium\' name=\'design_datum[memo]\' placeholder=\'コメント\'>\n"
+          $("#input_charaname").html(
+            "      <input class=\'input-medium\' name=\'design_datum[chara_name]\' placeholder=\'キャラ名\' value=\'" + chara_name + "\'>\n"
            );
   
           $("#bkg").css("visibility", "");

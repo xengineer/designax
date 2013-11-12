@@ -44,7 +44,7 @@
         %div.divrighttxt= design_datum.designer
         %div.divrighttxt= design_datum.file_name
         %div.divrighttxt= design_datum.deadline
-        %div.divrighttxt= design_datum.memo
+        %div.divrighttxt= design_datum.chara_name
         %div.divrighttxt
           %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
     - elsif design_datum.corp_state.state == "RE"
@@ -54,7 +54,7 @@
         %div.divrighttxt= design_datum.designer
         %div.divrighttxt= design_datum.file_name
         %div.divrighttxt= design_datum.deadline
-        %div.divrighttxt= design_datum.memo
+        %div.divrighttxt= design_datum.chara_name
         %div.divrighttxt
           %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
     - elsif design_datum.corp_state.state == "OK"
@@ -64,7 +64,7 @@
         %div.divrighttxt= design_datum.designer
         %div.divrighttxt= design_datum.file_name
         %div.divrighttxt= design_datum.deadline
-        %div.divrighttxt= design_datum.memo
+        %div.divrighttxt= design_datum.chara_name
         %div.divrighttxt
           %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
     - else
@@ -74,7 +74,7 @@
         %div.divrighttxt= design_datum.designer
         %div.divrighttxt= design_datum.file_name
         %div.divrighttxt= design_datum.deadline
-        %div.divrighttxt= design_datum.memo
+        %div.divrighttxt= design_datum.chara_name
         %div.divrighttxt
           %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
 %br
@@ -134,7 +134,7 @@
             %input{:type => "submit", :value => "更新", :disabled => "disabled", :id => "updateData"}
         %tr
           %td.design_td2
-            #input_comment
+            #input_charaname
           %td.design_td{:rowspan => "3", :width => "200px"}
             #input_designcomment{:style => "height:120px"}
           %td.design_td{:colspan => "2", :rowspan => "3", :width => "200px"}

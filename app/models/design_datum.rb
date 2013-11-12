@@ -9,7 +9,7 @@ class DesignDatum < ActiveRecord::Base
   belongs_to :corp_state
   has_many   :imagedatum
   attr_accessible :corp_comment, :ctype, :curSeq_id, :design_comment
-  attr_accessible :designer, :file_name, :memo, :up_date, :thumbnail#, :curImage
+  attr_accessible :designer, :file_name, :chara_name, :up_date, :thumbnail#, :curImage
   attr_accessible :state_id, :project_id, :corp_state_id, :deadline
 
   validates :file_name, :presence => {:message => " no file name."},
@@ -55,7 +55,7 @@ class DesignDatum < ActiveRecord::Base
     self.design_comment = data.design_comment if data.design_comment
     self.designer       = data.designer       if data.designer
     self.file_name      = data.file_name      if data.file_name
-    self.memo           = data.memo           if data.memo
+    self.chara_name     = data.chara_name     if data.chara_name
     self.up_date        = data.up_date        if data.up_date
     self.deadline       = data.deadline       if data.deadline
     self.curSeq_id      = data.curSeq_id      if data.curSeq_id

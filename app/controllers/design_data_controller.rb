@@ -52,7 +52,7 @@ class DesignDataController < ApplicationController
   def show
     id = params[:id]
 
-    col = "state_id, corp_state_id, corp_comment, design_comment, file_name, deadline"
+    col = "state_id, corp_state_id, corp_comment, design_comment, file_name, deadline, chara_name"
     @design_datum = DesignDatum.where(["id = ?", id]).select(col).first
     json_data = JSON.parse(@design_datum.to_json)
     json_data['role'] = current_user.role

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131001000006) do
+ActiveRecord::Schema.define(:version => 20131112092732) do
 
   create_table "corp_states", :force => true do |t|
     t.string   "state"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20131001000006) do
     t.string   "ctype"
     t.date     "up_date"
     t.string   "designer"
-    t.string   "memo"
+    t.string   "chara_name"
     t.integer  "state_id"
     t.integer  "corp_state_id"
     t.string   "design_comment"
