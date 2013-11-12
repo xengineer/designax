@@ -42,7 +42,7 @@ class DesignDatum < ActiveRecord::Base
 
   validate :file_invalid?
 
-  def setMembers(data)
+  def setMembers(data, role)
 
     if data.thumbnail
       img                 = Magick::Image.from_blob(data.thumbnail.read)
@@ -62,9 +62,12 @@ class DesignDatum < ActiveRecord::Base
 
     self.state_id       = data.state_id       if data.state_id
     self.project_id     = data.project_id     if data.project_id
-    self.corp_state_id  = data.corp_state_id  if data.corp_state_id
-    print "data.corp_state_id:" + data.corp_state_id.to_s + "\n"
-    print "self.corp_state_id:" + self.corp_state_id.to_s + "\n"
+
+    if role == "artist"
+      self.corp_state_id  = 1
+    else
+      self.corp_state_id  = data.corp_state_id  if data.corp_state_id
+    end
     #image.rewind
   end
 

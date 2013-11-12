@@ -118,7 +118,7 @@ class DesignDataController < ApplicationController
     @image_datum = ImageDatum.new()
     @image_datum.setMembers(d)
     @design_datum = DesignDatum.new()
-    @design_datum.setMembers(d)
+    @design_datum.setMembers(d, current_user.role)
 
     respond_to do |format|
       if @design_datum.save and @image_datum.save
@@ -152,7 +152,7 @@ class DesignDataController < ApplicationController
     @design_datum = DesignDatum.find(params[:id])
     d = DesignDatum.new(params[:design_datum])
     thumb     = params[:thumbnail]
-    id        = params[:id]
+    #id        = params[:id]
     imageId   = params[:image_data_id]
 
     # 画像更新する場合は、レコード追加するパターン
@@ -170,7 +170,7 @@ class DesignDataController < ApplicationController
     end
 
     @image_datum.updateMembers(d)
-    @design_datum.setMembers(d)
+    @design_datum.setMembers(d, current_user.role)
 
     respond_to do |format|
       begin
