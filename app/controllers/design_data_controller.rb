@@ -105,6 +105,7 @@ class DesignDataController < ApplicationController
   def create
     d = DesignDatum.new(params[:design_datum])
     d.curSeq_id = 1
+    d.corp_state_id = 1
 
     @image_datum = ImageDatum.new()
     @image_datum.setMembers(d)
