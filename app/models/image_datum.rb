@@ -75,6 +75,18 @@ class ImageDatum < ActiveRecord::Base
     data.thumbnail.rewind
   end
 
+  # imgdatをgeometry変更して imageとして設定して、
+  # thumbnailにも設定する
+  def setImage(imgdat)
+    if imgdat
+      self.ctype     = imgdat.content_type
+      img            = Magick::Image.from_blob(imgdat.read)
+      self.image     = img[0].to_blob
+      self.thumbnail = img[0].thumbnail(0.3).to_blob
+    end
+    imgdat.rewind
+  end
+
   def updateMembers(data)
 
     self.seq_id     = data.curSeq_id if data.curSeq_id

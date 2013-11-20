@@ -77,6 +77,13 @@ class DesignDatum < ActiveRecord::Base
     return image.getImagesByFileName()
   end
 
+  def setImage(imgdat)
+    img                 = Magick::Image.from_blob(imgdat.read)
+    self.thumbnail      = img[0].thumbnail(0.3).to_blob
+    imgdat.rewind
+    self.curSeq_id = self.curSeq_id + 1
+  end
+
   def self.findIndexData(user, page, fltArtist, fltProject, fltState, fltCorpState, fltDelFlag)
     filter = ""
 
