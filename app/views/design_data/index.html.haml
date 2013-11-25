@@ -56,7 +56,7 @@
         %div.divrighttxt= design_datum.file_name
         %div.divrighttxt= design_datum.designer
         %div.divrighttxt
-          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
+          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id, :url => @urlroot} 削除管理
     - elsif design_datum.corp_state.state == "OK"
       %div.imagetile_ok
         %div.divleftimage= image_tag(url_for(:action => 'show_thumbnail', :id => design_datum), :id => design_datum.id, :thumb => url_for(:action => 'show_thumbnail', :id => design_datum), :url => @urlroot)
@@ -66,7 +66,7 @@
         %div.divrighttxt= design_datum.file_name
         %div.divrighttxt= design_datum.designer
         %div.divrighttxt
-          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
+          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id, :url => @urlroot} 削除管理
     - else
       %div.imagetile_notchecked
         %div.divleftimage= image_tag(url_for(:action => 'show_thumbnail', :id => design_datum), :id => design_datum.id, :thumb => url_for(:action => 'show_thumbnail', :id => design_datum), :url => @urlroot)
@@ -76,7 +76,7 @@
         %div.divrighttxt= design_datum.file_name
         %div.divrighttxt= design_datum.designer
         %div.divrighttxt
-          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id} 削除管理
+          %button.removeImages{:type => "button", :value => "削除管理", :id=> design_datum.id, :url => @urlroot} 削除管理
 %br
 %br
 %br
