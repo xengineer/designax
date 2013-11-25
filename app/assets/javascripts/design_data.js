@@ -175,10 +175,11 @@ $(document).ready(function () {
 
 $(function () {
   $("button.removeImages").click(function() {
+    var url = $(this).attr("url")
     var id  = $(this).attr("id")
-    var url = "http://127.0.0.1:3000/image_data/get_removeImages/" + id
+    var delimgurl = url + "/image_data/get_removeImages/" + id
 
-    jQuery.get(url, function (mydata, mystatus){
+    jQuery.get(delimgurl, function (mydata, mystatus){
       $("#delimages").html(mydata);
     });
 
