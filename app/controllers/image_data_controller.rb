@@ -47,13 +47,15 @@ class ImageDataController < ApplicationController
                   "      <div class=\"removeImage\">\n" +
                   "        <img alt=\"" + lp.to_s + "\" height=\"56px\" src=\"" + urlroot + "/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
                   "      </div>\n" +
-                  "      <span class=\"removeImageTxtTopLeft\"> デザイナー名 </span>" +
+                  "      <span class=\"removeImageTxtTopLeft\"> ID </span>" +
+                  "      <span class=\"removeImageTxtTop\"> デザイナー名 </span>" +
                   "      <span class=\"removeImageTxtTop\"> プロジェクト名 </span>" +
                   "      <span class=\"removeImageTxtTop\"> ステータス </span>" +
                   "      <span class=\"removeImageTxtTop\"> ファイル名 </span>" +
                   "      <span class=\"removeImageTxtTop\"> キャラ名 </span>" +
                   "      <span class=\"removeImageTxtTopRight\"> 削除フラグ </span>" +
-                  "      <span class=\"removeImageTxtLeft\">" + @design_data.designer + "</span>" +
+                  "      <span class=\"removeImageTxtLeft\">" + image.seq_id.to_s + "</span>" +
+                  "      <span class=\"removeImageTxt\">" + @design_data.designer + "</span>" +
                   "      <span class=\"removeImageTxt\">" + @design_data.project.project_name + "</span>" +
                   "      <span class=\"removeImageTxt\">" + image.state.state + "</span>" +
                   "      <span class=\"removeImageTxt\">" + @design_data.file_name + "</span>" +
