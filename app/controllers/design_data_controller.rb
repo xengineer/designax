@@ -147,13 +147,16 @@ class DesignDataController < ApplicationController
     #id        = params[:id]
     imageId   = params[:image_data_id]
 
-    @image_datum = @design_datum.updateData(postedDesign, current_user, imageId, thumb)
+    @image_datum, imgs = @design_datum.updateData(postedDesign, current_user, imageId, thumb)
 
     respond_to do |format|
       begin
         ActiveRecord::Base.transaction() do
           @design_datum.save!
           @image_datum.save!
+          imgs.each do |img|
+            img.save!
+          end
         end
         format.html { redirect_to action: "index" }
         format.json { head :no_content }

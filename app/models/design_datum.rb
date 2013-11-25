@@ -88,21 +88,25 @@ class DesignDatum < ActiveRecord::Base
       image_datum = ImageDatum.find(imageId)
     end
 
-    #if self.file_name != postedDesign.file_name
-    #else
-    #end
+    # ファイル名変更時は全image_dataを変更する
+    if self.file_name != postedDesign.file_name
+      imgs = image_datum.getImagesByFileName()
+      imgs.each do |img|
+        img.file_name = postedDesign.file_name
+      end
+    end
 
     image_datum.updateCommonAttr(postedDesign)
     self.setMembers(postedDesign, user.role)
 
-    return image_datum
-  end
+    return [image_datum, imgs]
+  end 
 
-  def getImagesByFileName()
-    image = ImageDatum.new()
-    image.file_name = self.file_name
-    return image.getImagesByFileName()
-  end
+  #def getImagesByFileName()
+  #  image = ImageDatum.new()
+  #  image.file_name = self.file_name
+  #  return image.getImagesByFileName()
+  #end
 
 
   def setImage(imgdat)

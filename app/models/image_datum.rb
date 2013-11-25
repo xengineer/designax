@@ -92,8 +92,8 @@ class ImageDatum < ActiveRecord::Base
   # data: 親のdesign_dataから情報引っ張ってくる
   def updateCommonAttr(data)
     #self.seq_id     = data.curSeq_id if data.curSeq_id
+    #self.file_name  = data.file_name if data.file_name
     self.up_date    = data.up_date   if data.up_date
-    self.file_name  = data.file_name if data.file_name
     self.project_id = data.project_id
     self.state_id   = data.state_id
   end
@@ -104,7 +104,7 @@ class ImageDatum < ActiveRecord::Base
   end
 
   def getImagesByFileName()
-    return self.find_all_by_file_name(self.file_name)
+    return ImageDatum.find_all_by_file_name(self.file_name)
   end
 
   private
