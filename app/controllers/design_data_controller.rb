@@ -152,16 +152,17 @@ class DesignDataController < ApplicationController
     if thumb
       @image_datum = ImageDatum.new
       @design_datum.setImage(thumb)
-      d.curSeq_id  = @design_datum.curSeq_id + 1
+
+      d.curSeq_id  = @design_datum.curSeq_id
       d.project_id = @design_datum.project_id
-      @image_datum.setImage(thumb)
+      @image_datum.setAdditionalImage(thumb, @design_datum.file_name)
     # こっちは既存レコードの納期とか状態を更新する
     else
       d.project_id = @design_datum.project_id
       @image_datum = ImageDatum.find(imageId)
     end
 
-    @image_datum.updateMembers(d)
+    @image_datum.updateCommonAttr(d)
     @design_datum.setMembers(d, current_user.role)
 
     respond_to do |format|

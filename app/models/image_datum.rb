@@ -75,26 +75,27 @@ class ImageDatum < ActiveRecord::Base
     data.thumbnail.rewind
   end
 
-  # imgdatをgeometry変更して imageとして設定して、
-  # thumbnailにも設定する
-  def setImage(imgdat)
+  # imgdatをimage/thumbnailとして設定する
+  # 画像を既存データに追加する際に呼ばれる
+  def setAdditionalImage(imgdat, file_name)
     if imgdat
       self.ctype     = imgdat.content_type
       img            = Magick::Image.from_blob(imgdat.read)
       self.image     = img[0].to_blob
       self.thumbnail = img[0].thumbnail(0.3).to_blob
+      self.seq_id    = getMaxSeqIdByFileName(file_name) + 1
     end
     imgdat.rewind
   end
 
-  def updateMembers(data)
-
-    self.seq_id     = data.curSeq_id if data.curSeq_id
+  # データ更新が、画像追加/既存画像更新のどちらでも実行するメソッド
+  # data: 親のdesign_dataから情報引っ張ってくる
+  def updateCommonAttr(data)
+    #self.seq_id     = data.curSeq_id if data.curSeq_id
     self.up_date    = data.up_date   if data.up_date
     self.file_name  = data.file_name if data.file_name
     self.project_id = data.project_id
     self.state_id   = data.state_id
-
   end
 
   def getCurrentImageByFileName(id)
@@ -104,6 +105,13 @@ class ImageDatum < ActiveRecord::Base
 
   def getImagesByFileName()
     return self.find_all_by_file_name(self.file_name)
+  end
+
+  private
+  def getMaxSeqIdByFileName(file_name)
+    filter = "file_name = ?"
+    img = ImageDatum.where(filter, file_name).order('seq_id desc').limit(1)
+    return img[0].seq_id
   end
 
   private
