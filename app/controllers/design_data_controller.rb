@@ -142,28 +142,12 @@ class DesignDataController < ApplicationController
   # PUT /design_data/1.json
   def update
     @design_datum = DesignDatum.find(params[:id])
-    d = DesignDatum.new(params[:design_datum])
+    postedDesign = DesignDatum.new(params[:design_datum])
     thumb     = params[:thumbnail]
     #id        = params[:id]
     imageId   = params[:image_data_id]
 
-    # 画像更新する場合は、レコード追加するパターン
-    # なので、seq_idとかもインクリ
-    if thumb
-      @image_datum = ImageDatum.new
-      @design_datum.setImage(thumb)
-
-      d.curSeq_id  = @design_datum.curSeq_id
-      d.project_id = @design_datum.project_id
-      @image_datum.setAdditionalImage(thumb, @design_datum.file_name)
-    # こっちは既存レコードの納期とか状態を更新する
-    else
-      d.project_id = @design_datum.project_id
-      @image_datum = ImageDatum.find(imageId)
-    end
-
-    @image_datum.updateCommonAttr(d)
-    @design_datum.setMembers(d, current_user.role)
+    @image_datum = @design_datum.updateData(postedDesign, current_user, imageId, thumb)
 
     respond_to do |format|
       begin

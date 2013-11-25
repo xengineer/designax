@@ -71,11 +71,39 @@ class DesignDatum < ActiveRecord::Base
     #image.rewind
   end
 
+  def updateData(postedDesign, user, imageId, thumb)
+
+    # 画像更新する場合は、レコード追加するパターン
+    # なので、seq_idとかもインクリ
+    if thumb
+      image_datum = ImageDatum.new
+      self.setImage(thumb)
+
+      postedDesign.curSeq_id  = self.curSeq_id
+      postedDesign.project_id = self.project_id
+      image_datum.setAdditionalImage(thumb, self.file_name)
+    # こっちは既存レコードの納期とか状態を更新する
+    else
+      postedDesign.project_id = self.project_id
+      image_datum = ImageDatum.find(imageId)
+    end
+
+    #if self.file_name != postedDesign.file_name
+    #else
+    #end
+
+    image_datum.updateCommonAttr(postedDesign)
+    self.setMembers(postedDesign, user.role)
+
+    return image_datum
+  end
+
   def getImagesByFileName()
     image = ImageDatum.new()
     image.file_name = self.file_name
     return image.getImagesByFileName()
   end
+
 
   def setImage(imgdat)
     img                 = Magick::Image.from_blob(imgdat.read)
