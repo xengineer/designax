@@ -94,6 +94,8 @@ class DesignDatum < ActiveRecord::Base
       imgs.each do |img|
         img.file_name = postedDesign.file_name
       end
+    else
+      imgs = Array.new
     end
 
     image_datum.updateCommonAttr(postedDesign)

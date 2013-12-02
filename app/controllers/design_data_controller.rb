@@ -132,7 +132,6 @@ class DesignDataController < ApplicationController
         @image_datum.destroy
 
         format.html { redirect_to :action=>:index }
-        #format.html { render :action=>:index }
         format.json { render json: @design_datum.errors, status: :unprocessable_entity }
       end
     end
@@ -160,8 +159,8 @@ class DesignDataController < ApplicationController
         end
         format.html { redirect_to action: "index" }
         format.json { head :no_content }
-      rescue
-        flash[:error] = []
+      rescue => e
+        flash[:error] = "Data update failed : " + e.message
         flash[:error] = flash[:error] + @design_datum.errors.full_messages if not @design_datum.errors.empty?
         flash[:error] = flash[:error] + @image_datum.errors.full_messages  if !@image_datum.errors.empty?
         format.html { redirect_to :action=>:index }

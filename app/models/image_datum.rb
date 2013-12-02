@@ -84,8 +84,9 @@ class ImageDatum < ActiveRecord::Base
       self.image     = img[0].to_blob
       self.thumbnail = img[0].thumbnail(0.3).to_blob
       self.seq_id    = getMaxSeqIdByFileName(file_name) + 1
+      self.file_name = file_name
+      imgdat.rewind
     end
-    imgdat.rewind
   end
 
   # データ更新が、画像追加/既存画像更新のどちらでも実行するメソッド
