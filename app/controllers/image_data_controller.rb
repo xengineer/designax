@@ -59,7 +59,7 @@ class ImageDataController < ApplicationController
                   "      <span class=\"removeImageTxt\">" + @design_data.project.project_name + "</span>" +
                   "      <span class=\"removeImageTxt\">" + image.state.state + "</span>" +
                   "      <span class=\"removeImageTxt\">" + @design_data.file_name + "</span>" +
-                  "      <span class=\"removeImageTxt\"> かわいい子 </span>" +
+                  "      <span class=\"removeImageTxt\">" + @design_data.chara_name + "</span>" +
                   "      <span class=\"removeImageTxtRight\"><input name=\"delete[" + image.id.to_s + "]\" type=\"hidden\" value=\"0\" />" +
                   "      <input id=\"delete_\"" + image.id.to_s + "  name=\"delete[" + image.id.to_s + "]\" type=\"checkbox\" value=\"1\" " + checked+ "/></span>" +
                   "    </div>" +
