@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131112092732) do
+ActiveRecord::Schema.define(:version => 20131203070000) do
 
   create_table "corp_states", :force => true do |t|
     t.string   "state"
@@ -85,6 +85,12 @@ ActiveRecord::Schema.define(:version => 20131112092732) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "user_groups", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "user_infos", :force => true do |t|
     t.string   "user_id"
     t.datetime "created_at", :null => false
@@ -113,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20131112092732) do
     t.datetime "updated_at",                             :null => false
     t.string   "role"
     t.string   "username"
+    t.integer  "user_group_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
