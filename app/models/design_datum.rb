@@ -121,12 +121,33 @@ class DesignDatum < ActiveRecord::Base
   def self.findIndexData(user, page, fltArtist, fltProject, fltState, fltCorpState, fltDelFlag)
     filter = ""
 
-    if fltState.blank? and fltCorpState.blank?
-      filter       = "not (state_id = ? and corp_state_id = ?) and project_id like ? and delflag = ?"
+    if fltProject.blank?
+      fltTempProject   = "project_id like ?"
+    else
+      fltTempProject   = "project_id = ?"
+    end
+
+    if fltState.blank?
+      fltTempState     = "state_id like ?"
+    else
+      fltTempState     = "state_id = ?"
+    end
+
+    if fltCorpState.to_i == -2 and user.role == "admin"
+      filter       = fltTempState + " and corp_state_id = ? and " + fltTempProject + " and delflag = ?"
+      fltCorpState = "1"
+    elsif fltCorpState.to_i == -2
+      filter       = fltTempState + " and corp_state_id like ? and " + fltTempProject + " and delflag = ?"
+      fltCorpState = "%"
+    elsif fltState.blank? and fltCorpState.to_i == -1
+      filter       = "not (state_id = ? and corp_state_id = ?) and " + fltTempProject + " and delflag = ?"
       fltState     = "8"
       fltCorpState = "2"
+    elsif fltCorpState.to_i == -1
+      filter       = fltTempState + " and corp_state_id like ? and " + fltTempProject + " and delflag = ?"
+      fltCorpState = "%"
     else
-      filter = "state_id like ? and corp_state_id like ? and project_id like ? and delflag = ?"
+      filter = fltTempState + " and corp_state_id like ? and " + fltTempProject + " and delflag = ?"
     end
 
     fltProject   = "%" if fltProject.blank?

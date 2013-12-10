@@ -12,8 +12,16 @@ class DesignDataController < ApplicationController
   def index
 
     @users = current_user.getUser()
+
+    # if there's no filterCorpState key, it's first time viewer
+    # that comes from http://URL.com/ without get parameter
+    if params[:filterCorpState]
+      @fltCorpState = params[:filterCorpState]
+    else
+      @fltCorpState = -2
+    end
+
     @fltArtist    = params[:filterArtist]
-    @fltCorpState = params[:filterCorpState]
     @fltState     = params[:filterState]
     @fltProject   = params[:filterProject]
     @fltDelFlag   = params[:filterDelete]
