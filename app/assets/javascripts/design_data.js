@@ -18,138 +18,129 @@ $(function () {
       type: "GET",
       url: imgs,
       datatype: "text",
-      success: function(mydata) {
-        $("ul.ad-thumb-list").html(mydata);
-        galleries = $('.ad-gallery').adGallery();
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-        alert("Error. Try again.");
-      },
-      complete: function(mydata) {
-        //alert("complete");
-      }
+    }).done(function(mydata) {
+      $("ul.ad-thumb-list").html(mydata);
+      galleries = $('.ad-gallery').adGallery();
+    }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+      alert("Error. Try again.");
+    }).always(function(mydata) {
+      //alert("complete");
     });
 
     jQuery.ajax({
       type: "GET",
       url: crtIdURL,
       datatype: "text",
-      success: function(mydata) {
-        $("#imageid").html(
-          "<input type=\'hidden\' name=\"image_data_id\" value=\'" + mydata + "\'>\n"
-         );
-        $("input#updateData").prop('disabled', false);
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-        alert("Error. Try again.");
-      },
-      complete: function(mydata) {
-        //alert("complete");
-      }
+    }).done(function(mydata) {
+      $("#imageid").html(
+        "<input type=\'hidden\' name=\"image_data_id\" value=\'" + mydata + "\'>\n"
+       );
+      $("input#updateData").prop('disabled', false);
+    }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+      alert("Error. Try again.");
+    }).always(function(mydata) {
+      //alert("complete");
     });
 
     jQuery.ajax({
       type: "GET",
       url: designData,
       datatype: "text",
-      success: function(mydata) {
+    }).done(function(mydata) {
 
-        var corpComment   = ""
-        var designComment = ""
-        var deadline      = ""
-        var year          = ""
-        var month         = ""
-        var day           = ""
-        var yearhtml      = ""
-        var monthhtml     = ""
-        var dayhtml       = ""
-        var file_name     = ""
-        var chara_name    = ""
+      var corpComment   = ""
+      var designComment = ""
+      var deadline      = ""
+      var year          = ""
+      var month         = ""
+      var day           = ""
+      var yearhtml      = ""
+      var monthhtml     = ""
+      var dayhtml       = ""
+      var file_name     = ""
+      var chara_name    = ""
 
-        if(mydata.design_comment) {
-          designComment = mydata.design_comment
-        } else {
-          designComment = ""
-        }
+      if(mydata.design_comment) {
+        designComment = mydata.design_comment
+      } else {
+        designComment = ""
+      }
 
-        if(mydata.chara_name) {
-          chara_name   = mydata.chara_name
-        } else {
-          chara_name   = ""
-        }
+      if(mydata.chara_name) {
+        chara_name   = mydata.chara_name
+      } else {
+        chara_name   = ""
+      }
   
-        if(mydata.corp_comment) {
-          corpComment   = mydata.corp_comment
-        } else {
-          corpComment   = ""
-        }
+      if(mydata.corp_comment) {
+        corpComment   = mydata.corp_comment
+      } else {
+        corpComment   = ""
+      }
   
-        if(mydata.deadline) {
-          deadline = mydata.deadline.split("-")
-          year  = deadline[0];
-          month = deadline[1];
-          day   = deadline[2];
+      if(mydata.deadline) {
+        deadline = mydata.deadline.split("-")
+        year  = deadline[0];
+        month = deadline[1];
+        day   = deadline[2];
+      }
+      else {
+        var today = new Date();
+        year  = today.getFullYear();
+        month = today.getMonth() + 1;
+        day   = today.getDate();
+      }
+  
+      yearhtml  = "<select id=\"design_datum_deadline_1i\" name=\"design_datum[deadline(1i)]\" style=\"width: 30%\">\n";
+      monthhtml = "<select id=\"design_datum_deadline_2i\" name=\"design_datum[deadline(2i)]\" style=\"width: 30%\">\n";
+      dayhtml   = "<select id=\"design_datum_deadline_3i\" name=\"design_datum[deadline(3i)]\" style=\"width: 30%\">\n";
+
+      for(var i = year; i <= year + 6; i++) {
+        if(i == year) {
+          yearhtml += "<option selected=\"selected\" value=\"" + i + "\">" + i + "</option>\n"
         }
         else {
-          var today = new Date();
-          year  = today.getFullYear();
-          month = today.getMonth() + 1;
-          day   = today.getDate();
+          yearhtml += "<option value=\"" + i + "\">" + i + "</option>\n"
         }
-  
-        yearhtml  = "<select id=\"design_datum_deadline_1i\" name=\"design_datum[deadline(1i)]\" style=\"width: 30%\">\n";
-        monthhtml = "<select id=\"design_datum_deadline_2i\" name=\"design_datum[deadline(2i)]\" style=\"width: 30%\">\n";
-        dayhtml   = "<select id=\"design_datum_deadline_3i\" name=\"design_datum[deadline(3i)]\" style=\"width: 30%\">\n";
-
-        for(var i = year; i <= year + 6; i++) {
-          if(i == year) {
-            yearhtml += "<option selected=\"selected\" value=\"" + i + "\">" + i + "</option>\n"
-          }
-          else {
-            yearhtml += "<option value=\"" + i + "\">" + i + "</option>\n"
-          }
-        }
-        yearhtml += "</select>\n"
-  
-        for(var i = 1; i <= 12; i++) {
-          if(i == month) {
-            monthhtml += "<option selected=\"selected\" value=\"" + i + "\">" + i + "</option>\\n"
-          }
-          else {
-            monthhtml += "<option value=\"" + i + "\">" + i + "</option>\n"
-          }
-        }
-        monthhtml += "</select>\n"
-        for(var i = 1; i <= 31; i++) {
-          if(i == day) {
-            dayhtml += "<option selected=\"selected\" value=\"" + i + "\">" + i + "</option>\n"
-          }
-          else {
-            dayhtml += "<option value=\"" + i + "\">" + i + "</option>\n"
-          }
-        }
-        dayhtml += "</select>\n"
-        var deadlinehtml = "納期:" + yearhtml + monthhtml+ dayhtml;
-  
-        if(mydata.file_name) {
-          file_name = "value=\"" + mydata.file_name + "\""
-        } else {
-          file_name = ""
-        }
-  
-        showDesignState(mydata.state_id);
-        showCorpState(mydata.corp_state_id);
-        setStateSelected();
-        setCorpStateSelected();
-        showUpdateDialog(id, thumburl, file_name, deadlinehtml, designComment, corpComment, chara_name, mydata['role']);
-  
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-        alert("Error. Try again.");
-      },
-      complete: function(mydata) {
-        //alert("complete");
       }
+      yearhtml += "</select>\n"
+  
+      for(var i = 1; i <= 12; i++) {
+        if(i == month) {
+          monthhtml += "<option selected=\"selected\" value=\"" + i + "\">" + i + "</option>\\n"
+        }
+        else {
+          monthhtml += "<option value=\"" + i + "\">" + i + "</option>\n"
+        }
+      }
+      monthhtml += "</select>\n"
+      for(var i = 1; i <= 31; i++) {
+        if(i == day) {
+          dayhtml += "<option selected=\"selected\" value=\"" + i + "\">" + i + "</option>\n"
+        }
+        else {
+          dayhtml += "<option value=\"" + i + "\">" + i + "</option>\n"
+        }
+      }
+      dayhtml += "</select>\n"
+      var deadlinehtml = "納期:" + yearhtml + monthhtml+ dayhtml;
+  
+      if(mydata.file_name) {
+        file_name = "value=\"" + mydata.file_name + "\""
+      } else {
+        file_name = ""
+      }
+  
+      showDesignState(mydata.state_id);
+      showCorpState(mydata.corp_state_id);
+      setStateSelected();
+      setCorpStateSelected();
+      showUpdateDialog(id, thumburl, file_name, deadlinehtml, designComment, corpComment, chara_name, mydata['role']);
+  
+    }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Error. Try again.");
+    }).always(function(mydata) {
+        //alert("complete");
     });
 
     $("ul.ad-thumb-list").css("width", "600px");
