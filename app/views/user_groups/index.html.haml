@@ -9,7 +9,7 @@
 
   - @user_groups.each do |user_group|
     %tr.grouptbl_tr
-      %td.grouptbl_td_edit{:gid => user_group.id}= user_group.name
+      %td.grouptbl_td_edit{:gid => user_group.id, :url => @urlroot}= user_group.name
       %td.grouptbl_td= user_group.name
       %td.grouptbl_td= link_to 'Edit', edit_user_group_path(user_group)
       %td.grouptbl_td= link_to 'Destroy', user_group, :method => :delete, :data => { :confirm => 'Are you sure?' }

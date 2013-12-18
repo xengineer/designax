@@ -5,6 +5,16 @@ class UserGroupsController < ApplicationController
     @user_groups = UserGroup.all
     @user_group = UserGroup.new
 
+    print "###############:AAAAAAAAAAAAAAAA\n"
+    print "###############:" + @user_groups[0].name + "\n"
+    @user_groups[0].users do |user|
+      puts user.user_name
+      print "###############:" + user.user_name + "\n"
+    end
+
+    # index.html.haml表示用URL
+    @urlroot = Designax::Application.config.urlroot
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @user_groups }
@@ -58,13 +68,20 @@ class UserGroupsController < ApplicationController
   # PUT /user_groups/1.json
   def update
     @user_group = UserGroup.find(params[:id])
+    gname = params[:user_group]
+    @user_group.name = gname
 
     respond_to do |format|
-      if @user_group.update_attributes(params[:user_group])
-        format.html { redirect_to @user_group, notice: 'User group was successfully updated.' }
+      #if @user_group.update_attributes(params[:user_group])
+      if @user_group.save
+        @user_groups = UserGroup.all
+        #format.html { redirect_to @user_group, notice: 'User group was successfully updated.' }
+        #format.html { redirect_to :action=>:index }
+        format.html { render action: "index" }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        @user_groups = UserGroup.all
+        format.html { render action: "index" }
         format.json { render json: @user_group.errors, status: :unprocessable_entity }
       end
     end
