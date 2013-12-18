@@ -34,7 +34,7 @@
                        onStop: false
                      },
                      effect: 'slide-hori', // or 'slide-vert', 'fade', or 'resize', 'none'
-                     enable_keyboard_move: true,
+                     enable_keyboard_move: false,
                      cycle: true,
                      hooks: {
                        displayDescription: false
