@@ -33,6 +33,7 @@
               - if user_signed_in?
                 - if current_user.role == 'admin'
                   %li= link_to "Add user", "/users/sign_up"
+                  %li= link_to "Edit project", "/projects"
 
                 %li= link_to "Edit user", "/users/edit"
 
