@@ -8,7 +8,7 @@ set :use_sudo, true
 # set :deploy_to, '/var/www/my_app'
 set :scm, :git
 #set :repository, 'https://github.com/xengineer/designax.git'
-set :branch, 'master'
+set :branch, fetch(:branch, 'master')
 set :deploy_via, :copy
 set :copy_exclude, [".git", ".gitignore"]
 
