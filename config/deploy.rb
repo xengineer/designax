@@ -28,19 +28,19 @@ set :copy_exclude, [".git", ".gitignore"]
 #  end
 #end
 
-#namespace :deploy do
+namespace :deploy do
 #  before :deploy do
 #    try_sudo "chown -R root:nubee #{fetch(:deploy_to)}"
 #  end
 
-#  desc 'Restart application'
-#  task :restart do
-#    on roles(:app), in: :sequence, wait: 5 do
-#      # Your restart mechanism here, for example:
-#      # execute :touch, release_path.join('tmp/restart.txt')
-#    end
-#  end
-#
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      # execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
+
 #  after :restart, :clear_cache do
 #    on roles(:web), in: :groups, limit: 3, wait: 10 do
 #      # Here we can do anything such as:
@@ -53,4 +53,4 @@ set :copy_exclude, [".git", ".gitignore"]
 
 #  after :finishing, 'deploy:cleanup'
 
-#end
+end
