@@ -2,6 +2,7 @@
 $(function () {
   $.fn.editable.defaults.mode = 'inline';
   $('.project_name').editable();
+  $('.new_project').editable();
 
   $('.project_name').click(function() {
     $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
