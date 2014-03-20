@@ -8,8 +8,10 @@ set :use_sudo, true
 # set :deploy_to, '/var/www/my_app'
 set :scm, :git
 #set :repository, 'https://github.com/xengineer/designax.git'
+#set :branch, 'master'
 set :branch, fetch(:branch, 'master')
-set :deploy_via, :copy
+
+set :deploy_via, :remote_cache
 set :copy_exclude, [".git", ".gitignore"]
 
 # set :format, :pretty
@@ -28,19 +30,26 @@ set :copy_exclude, [".git", ".gitignore"]
 #  end
 #end
 
+before "deploy", "deploy:echo"
 namespace :deploy do
-#  before :deploy do
-#    try_sudo "chown -R root:nubee #{fetch(:deploy_to)}"
-#  end
+  task :echo do
+    on roles(:app) do
+      #try_sudo "chown -R root:nubee #{fetch(:deploy_to)}"
+      execute "echo /etc/init.d/unicorn stop"
+    end
+  end
 
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
+      execute "mkdir -p #{deploy_to}/current/tmp/pids"
+      #execute "/etc/init.d/unicorn start"
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
     end
   end
-
+end
+#
 #  after :restart, :clear_cache do
 #    on roles(:web), in: :groups, limit: 3, wait: 10 do
 #      # Here we can do anything such as:
@@ -53,4 +62,4 @@ namespace :deploy do
 
 #  after :finishing, 'deploy:cleanup'
 
-end
+#end
