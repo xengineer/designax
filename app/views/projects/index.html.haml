@@ -1,19 +1,21 @@
-%h1 Listing projects
 
-%table
-  %tr
-    %th Project name
-    %th
-    %th
-    %th
-
-  - @projects.each do |project|
-    %tr
-      %td= project.project_name
-      %td= link_to 'Show', project
-      %td= link_to 'Edit', edit_project_path(project)
-      %td= link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Project', new_project_path
+%div.row
+  %div.span4
+  %div.span4
+    %h3 Projects
+    %table.table.table-hover.table-condensed
+      %tr
+        %th ID
+        %th Project name
+    
+      - @projects.each do |project|
+        %tr
+          %td= project.id
+          %td
+            %a.project_name{:href=>"#", "data-type"=>"text", "data-pk"=>project.id, "data-name"=>"project_name"}= project.project_name
+    
+      %tr
+        %td new
+        %td
+          %a.new_project{:href=>"#", "data-type"=>"text", "data-name"=>"project_name"} new project
+  %div.span4
