@@ -17,7 +17,7 @@ set :stage, :development
 # something that quacks like a has can be used to set
 # extended properties on the server.
 #server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
-server '127.0.0.1', user: 'nubee', roles: %w{web app db}
+server '127.0.0.1', user: 'nemoto_hideaki', roles: %w{web app db}
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
