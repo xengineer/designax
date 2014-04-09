@@ -230,6 +230,9 @@ function openFilteredIndex() {
   var url       = protocol + "//" + host + "?";
   var notFirst  = false;
 
+  // set for "all check states"
+  if(corpstate == "") { corpstate = -1; }
+
   if(project)   { url = url + "filterProject="   + project   + "&"; }
   if(state)     { url = url + "filterState="     + state     + "&"; }
   if(corpstate) { url = url + "filterCorpState=" + corpstate + "&"; }
