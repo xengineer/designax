@@ -65,7 +65,7 @@ module Designax
     elsif Rails.env == 'staging'
       config.urlroot == 'http://127.0.0.1:3000'
     elsif Rails.env == 'development'
-      config.urlroot = 'http://127.0.0.1:3000'
+      config.urlroot = 'http://designax.nubee.jp:10080'
     else
       config.urlroot = 'http://127.0.0.1:3000'
     end
