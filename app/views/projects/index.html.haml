@@ -1,19 +1,18 @@
 %h1 Listing projects
 
-%table
-  %tr
-    %th Project name
-    %th
-    %th
-    %th
+%table.grouptbl
+  %tr.grouptbl_tr
+    %th.grouptbl_th ID
+    %th.grouptbl_th Project name
 
   - @projects.each do |project|
-    %tr
-      %td= project.project_name
-      %td= link_to 'Show', project
-      %td= link_to 'Edit', edit_project_path(project)
-      %td= link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    %tr.grouptbl_tr
+      %td.groutbl_td= project.id
+      %td.grouptbl_td_edit{:prjid=>project.id, :url => @urlroot}= project.project_name
+
+  %tr.grouptbl_tr
+    %td.groutbl_td new
+    %td.grouptbl_td_edit{:url => @urlroot} new project
 
 %br
 
-= link_to 'New Project', new_project_path
