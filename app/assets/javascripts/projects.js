@@ -1,40 +1,40 @@
 
 $(function () {
   $.fn.editable.defaults.mode = 'inline';
-  $('.project_name').editable();
-  $('.new_project').editable();
-
-  $('.project_name').click(function() {
-    $.fn.editable.defaults.ajaxOptions = {type: "PUT"};
+  $('.project_name').each(function() {
     var dtype  = $(this).attr("data-type")
     var dpk    = $(this).attr("data-pk")
-    //var tmpurl = $(this).attr("data-url")
-    //alert(tmpurl)
-    var durl = "/projects/" + dpk
-    
-    //alert(durl)
+    var dname  = $(this).attr("data-name")
+    var tmpurl = $(this).attr("data-url")
+    var durl   = tmpurl + "/projects/" + dpk + ".json"
 
     $(this).editable({
-      type: dtype,
-      pk: dpk,
-      url: durl
+      ajaxOptions: {
+        dataType: 'json',
+        type: 'PUT'
+      },
+      error: function(response, newValue) {
+        var msg = response.responseText
+        return msg;
+      }
     });
+
   });
 
-  $('.new_project').click(function() {
-    $.fn.editable.defaults.ajaxOptions = {type: "POST"};
-    var dtype  = $(this).attr("data-type")
-    //var tmpurl = $(this).attr("data-url")
-    //alert(tmpurl)
-    var durl = "/projects"
-    
-    //alert(durl)
-
-    $(this).editable({
-      type: dtype,
-      pk: "new",
-      url: durl
-    });
+  $('.new_project').editable({
+    ajaxOptions: {
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      dataType: 'json',
+      type: 'POST'
+    },
+    success: function(response, newValue) {
+      var url = response.url
+      location.href = url
+    },
+    error: function(response, newValue) {
+      var url = response.responseText
+      alert("Could not create new project. Try again.")
+    }
   });
 
 });

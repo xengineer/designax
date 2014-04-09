@@ -12,10 +12,10 @@
         %tr
           %td= project.id
           %td
-            %a.project_name{:href=>"#", "data-type"=>"text", "data-pk"=>project.id, "data-name"=>"project_name"}= project.project_name
+            %a.project_name{:href=>"#", "data-type"=>"text", "data-pk"=>project.id, "data-name"=>"project_name", "data-url" => "#{@urlroot}/projects/#{project.id}.json"}= project.project_name 
     
       %tr
         %td new
         %td
-          %a.new_project{:href=>"#", "data-type"=>"text", "data-name"=>"project_name"} new project
+          %a.new_project{:href=>"#", "data-type"=>"text", "data-pk"=>"new", "data-name"=>"project_name", "data-url" => "#{@urlroot}/projects.json"} new project
   %div.span4
