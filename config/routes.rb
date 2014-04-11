@@ -16,7 +16,6 @@ Designax::Application.routes.draw do
 
   resources :user_groups
   resources :groups
-  resources :users
 
   match 'image_data/image/:id'  => 'image_data#show_image'
   match 'image_data/thumbnail/:id'  => 'image_data#show_thumbnail'
