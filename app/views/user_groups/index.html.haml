@@ -1,26 +1,19 @@
-%h1 Listing user_groups
 
-%table.grouptbl
-  %tr.grouptbl_tr
-    %th.grouptbl_th Group Name
-    %th.grouptbl_th User Name
-    %th.grouptbl_th
-    %th.grouptbl_th
-
-  - @user_groups.each do |user_group|
-    %tr.grouptbl_tr
-      %td.grouptbl_td_edit{:gid => user_group.id, :url => @urlroot}= user_group.name
-      %td.grouptbl_td= user_group.name
-      %td.grouptbl_td= link_to 'Edit', edit_user_group_path(user_group)
-      %td.grouptbl_td= link_to 'Destroy', user_group, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= simple_form_for(@user_group) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.input :name
-
-  .form-actions
-    = f.button :submit
+%div.row
+  %div.span4
+  %div.span4
+    %h3 Users and usergroups
+      %table.table.table-hover.table-condensed
+        %tr
+          %th Group Name
+          %th User Name
+      
+        - @user_groups.each do |user_group|
+          %tr
+            %td= user_group.name
+            %td= user_group.name
+        %tr
+          %td new
+          %td
+            %a.new_project{:href=>"#", "data-type"=>"text", "data-pk"=>"new", "data-name"=>"project_name", "data-url" => "#{@urlroot}/projects.json"} new user
+  %div.span4
