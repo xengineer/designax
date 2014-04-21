@@ -1,10 +1,14 @@
 # -*- encoding: utf-8 -*-
+require 'json'
 
 class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
     @projects = Project.all
+
+    # index.html.haml表示用URL
+    @urlroot = Designax::Application.config.urlroot
 
     respond_to do |format|
       format.html # index.html.erb
@@ -42,12 +46,20 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(params[:project])
+    @urlroot = Designax::Application.config.urlroot
+    if params[:pk] == "new" and params[:name] == "project_name"
+      project_name = params[:value]
+      @project = Project.new()
+      @project.project_name = project_name
+    else
+      @project = Project.new(params[:project])
+    end
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render json: @project, status: :created, location: @project }
+        redirect_url = @urlroot + "/projects"
+        response_url = { "url" => redirect_url }
+        format.json { render json: response_url, status: 200 }
       else
         format.html { render action: "new" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
@@ -60,13 +72,29 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
 
+    if params[:name] == "project_name"
+      project_name = params[:value]
+      @project.project_name = project_name
+    end
+
     respond_to do |format|
       if @project.update_attributes(params[:project])
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
-        format.json { head :no_content }
+
+        @projects = Project.all
+        format.html {
+          render :action => "index"
+        }
+        format.json { render json: @project }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        logMessage = self.class.to_s + "#" + __method__.to_s + " " + current_user.username + " errors:" + @project.errors.full_messages.to_s
+        logger.info logMessage
+
+        format.html {
+          flash[:error] = 'Project was not successfully updated.'
+          redirect_to action: "index"
+        }
+        errorMsg = @project.errors.full_messages.to_s.split("\"")
+        format.json { render json: errorMsg[1], status: 500 }
       end
     end
   end

@@ -7,9 +7,10 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
-  attr_accessible :role, :login
+  attr_accessible :role, :login, :user_group_id
   # attr_accessible :title, :body
   attr_accessor :login
+  belongs_to :user_group
   
   ROLES=%w[artist manager admin]
 

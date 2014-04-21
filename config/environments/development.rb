@@ -39,10 +39,11 @@ Designax::Application.configure do
   config.sass.syntax = :sass
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  #config.log_level = :warn
 
   config.logger                 = Logger.new(config.paths["log"].first)
   config.logger.formatter       = Logger::Formatter.new
   config.logger.datetime_format = "%Y-%m-%d %H:%M:%S"
-  config.logger.level           = Logger::DEBUG
+  config.logger.level           = Logger::INFO
   config.colorize_logging       = false
 end

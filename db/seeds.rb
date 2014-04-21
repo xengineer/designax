@@ -22,3 +22,6 @@ CorpState.create(state: 'RE')
 
 Project.create(project_name: 'SG')
 Project.create(project_name: 'SG2')
+
+UserGroup.create(name: 'Nubee')
+UserGroup.create(name: 'NubeeTest')

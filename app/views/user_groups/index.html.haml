@@ -1,0 +1,19 @@
+
+%div.row
+  %div.span4
+  %div.span4
+    %h3 Users and usergroups
+      %table.table.table-hover.table-condensed
+        %tr
+          %th Group Name
+          %th User Name
+      
+        - @user_groups.each do |user_group|
+          %tr
+            %td= user_group.name
+            %td= user_group.name
+        %tr
+          %td new
+          %td
+            %a.new_project{:href=>"#", "data-type"=>"text", "data-pk"=>"new", "data-name"=>"project_name", "data-url" => "#{@urlroot}/projects.json"} new user
+  %div.span4

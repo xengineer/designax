@@ -1,75 +1,40 @@
 
 $(function () {
-  var clicked = 0
-  var gid     = -1
+  $.fn.editable.defaults.mode = 'inline';
+  $('.project_name').each(function() {
+    var dtype  = $(this).attr("data-type")
+    var dpk    = $(this).attr("data-pk")
+    var dname  = $(this).attr("data-name")
+    var tmpurl = $(this).attr("data-url")
+    var durl   = tmpurl + "/projects/" + dpk + ".json"
 
-  $(".grouptbl_td_edit").click(function() {
-    if(clicked == 0) {
-      var prjname = $(this).html();
-      var url     = $(this).attr("url");
-      prjid       = $(this).attr("prjid");
-      var htmltext = "<input id=\"project_name\" name=\"project[name]\" type=\"text\" value=" + prjname + " prjid=" + prjid + " url=" + url + "/>";
-      $(this).html(htmltext);
-      clicked = 1
-    }  else if(prjid > 0) {
-      var prjidnow   = $(this).attr("prjid");
-
-      if(gid != gidnow) {
-        var selTd = ".grouptbl_td_edit[gid=" + gid + "]";
-        var selInput = "#user_group_name[gid=" + gid + "]";
-        var gname = $(selInput).val();
-        $(selTd).html(gname);
-        clicked = 0
+    $(this).editable({
+      ajaxOptions: {
+        dataType: 'json',
+        type: 'PUT'
+      },
+      error: function(response, newValue) {
+        var msg = response.responseText
+        return msg;
       }
-    }
-  });
-
-  //$("td,input#user_group_name").on("enterKey", function(e) {
-  $("td").on("enterKey", "input#user_group_name", function(e) {
-    var gid   = $(this).attr("gid");
-    var url   = $(this).attr("url");
-    var gname = $(this).val();
-    var update = url + "user_groups/" + gid
-    var data  = "user_group=" + gname
-    var selTd = ".grouptbl_td_edit[gid=" + gid + "]";
-
-    alert(update)
-
-    jQuery.ajax({
-      type: "PUT",
-      url: update,
-      data: data,
-      datatype: "text",
-    }).done(function(mydata) {
-      $(selTd).html(gname);
-      clicked = 0;
-    //}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-    }).fail(function(errorThrown) {
-      //alert("Error updating user group. Try again.");
-      $(selTd).html(gname);
-      clicked = 0;
-    }).always(function(mydata) {
-      //alert("Done");
-      clicked = 0;
     });
+
   });
 
-  $("td").on("keyup", "input#user_group_name", function(e) {
-  //$("td,input#user_group_name").on("keydown", function(e) {
-    if(e.which == '13') {
-      $(this).trigger("enterKey");
-      return false;
+  $('.new_project').editable({
+    ajaxOptions: {
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      dataType: 'json',
+      type: 'POST'
+    },
+    success: function(response, newValue) {
+      var url = response.url
+      location.href = url
+    },
+    error: function(response, newValue) {
+      var url = response.responseText
+      alert("Could not create new project. Try again.")
     }
   });
-  //$(":not(td.grouptbl_td_edit)").click(function() {
-  //  if(clicked == 1) {
-  //  if(gid > 0) {
-  //    selTd = ".grouptbl_td_edit[gid=" + gid + "]";
-  //    selInput = "#user_group_name[gid=" + gid + "]";
-  //    var gname = $(selInput).val();
-  //    $(selTd).html(gname);
-  //  }
-  //  clicked = 0
-  //  }
-  //});
+
 });

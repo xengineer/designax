@@ -1,18 +1,21 @@
-%h1 Listing projects
 
-%table.grouptbl
-  %tr.grouptbl_tr
-    %th.grouptbl_th ID
-    %th.grouptbl_th Project name
-
-  - @projects.each do |project|
-    %tr.grouptbl_tr
-      %td.groutbl_td= project.id
-      %td.grouptbl_td_edit{:prjid=>project.id, :url => @urlroot}= project.project_name
-
-  %tr.grouptbl_tr
-    %td.groutbl_td new
-    %td.grouptbl_td_edit{:url => @urlroot} new project
-
-%br
-
+%div.row
+  %div.span4
+  %div.span4
+    %h3 Projects
+    %table.table.table-hover.table-condensed
+      %tr
+        %th ID
+        %th Project name
+    
+      - @projects.each do |project|
+        %tr
+          %td= project.id
+          %td
+            %a.project_name{:href=>"#", "data-type"=>"text", "data-pk"=>project.id, "data-name"=>"project_name", "data-url" => "#{@urlroot}/projects/#{project.id}.json"}= project.project_name 
+    
+      %tr
+        %td new
+        %td
+          %a.new_project{:href=>"#", "data-type"=>"text", "data-pk"=>"new", "data-name"=>"project_name", "data-url" => "#{@urlroot}/projects.json"} new project
+  %div.span4

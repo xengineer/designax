@@ -1,4 +1,22 @@
 Designax::Application.routes.draw do
+
+  get "users/new"
+
+  get "users/create"
+
+  get "users/update"
+
+  get "users/edit"
+
+  get "users/destroy"
+
+  get "users/index"
+
+  get "users/show"
+
+  resources :user_groups
+  resources :groups
+
   match 'image_data/image/:id'  => 'image_data#show_image'
   match 'image_data/thumbnail/:id'  => 'image_data#show_thumbnail'
   match 'design_data/image/:id' => 'design_data#show_image'
