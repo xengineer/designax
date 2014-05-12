@@ -61,11 +61,11 @@ module Designax
     config.assets.version = '1.0'
 
     if Rails.env == 'production'
-      config.urlroot = 'http://designax.nubee.jp:10080'
+      config.urlroot = 'https://designax.nubee.com'
     elsif Rails.env == 'staging'
       config.urlroot == 'http://127.0.0.1:3000'
     elsif Rails.env == 'development'
-      config.urlroot = 'http://designax.nubee.jp:10080'
+      config.urlroot = 'https://designax.nubee.com'
     else
       config.urlroot = 'http://127.0.0.1:3000'
     end

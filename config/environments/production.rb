@@ -23,7 +23,7 @@ Designax::Application.configure do
   config.sass.preferred_syntax = :sass
   config.sass.syntax = :sass
 
-  config.action_mailer.default_url_options = { :host => 'designax.nubee.jp' }
+  config.action_mailer.default_url_options = { :host => 'designax.nubee.com' }
 
   config.logger                 = Logger.new(config.paths["log"].first)
   config.logger.formatter       = Logger::Formatter.new
