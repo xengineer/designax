@@ -41,6 +41,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rails-footnotes', '>=3.7.9'
+  gem 'rack-mini-profiler'
 end
 
 # Gems used only for assets and not required
