@@ -14,6 +14,7 @@ State.create(state: '線画')
 State.create(state: '着色')
 State.create(state: '上位')
 State.create(state: '反転')
+State.create(state: '色替')
 State.create(state: '納品済')
 
 CorpState.create(state: '未確認')
