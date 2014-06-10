@@ -16,7 +16,7 @@ class ImageDatum < ActiveRecord::Base
             :presence => true,
             :numericality => {:only_integer => true, :greater_than => 0, :less_than => 50},
             :uniqueness => {:scope => [:file_name, :project_id]}
-  validates :state,
+  validates_associated :state,
             :presence => true
   validates :project_id,
             :presence => {:message => " no project."},
