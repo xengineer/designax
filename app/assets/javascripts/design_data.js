@@ -58,6 +58,7 @@ $(function () {
       var monthhtml     = ""
       var dayhtml       = ""
       var file_name     = ""
+      var designer      = ""
       var chara_name    = ""
 
       if(mydata.design_comment) {
@@ -130,12 +131,18 @@ $(function () {
       } else {
         file_name = ""
       }
+
+      if(mydata.designer) {
+        designer = mydata.designer
+      } else {
+        designer = ""
+      }
   
       showDesignState(mydata.state_id);
       showCorpState(mydata.corp_state_id);
       setStateSelected();
       setCorpStateSelected();
-      showUpdateDialog(id, thumburl, file_name, deadlinehtml, designComment, corpComment, chara_name, mydata['role']);
+      showUpdateDialog(id, thumburl, designer, file_name, deadlinehtml, designComment, corpComment, chara_name, mydata['role']);
   
     }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
         alert("Error. Try again.");
@@ -285,7 +292,7 @@ function setCorpStateSelected() {
   $(".check .btn#ok").click(function()         { colorSelectedButton(".check .btn#ok"        , ".check .btn", "#corp_state"); });
 }
 
-function showUpdateDialog(id, thumburl, file_name, deadlinehtml, designComment, corpComment, chara_name, role) {
+function showUpdateDialog(id, thumburl, designer, file_name, deadlinehtml, designComment, corpComment, chara_name, role) {
 
   if ($("#bkg").css('visibility') == 'hidden') {
     $("#form_update").wrapInner(
@@ -295,6 +302,10 @@ function showUpdateDialog(id, thumburl, file_name, deadlinehtml, designComment, 
 
     $("#gallery_imgs").html(
       "      <a href=\"" + thumburl + "\"><img src=\"" + thumburl + "\" height=\"120px\"></a>\n"
+     );
+
+    $("#designer_name").html(
+      "      " + designer + "\n"
      );
 
     $("#input_filename").html(
