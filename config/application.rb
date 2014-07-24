@@ -61,6 +61,16 @@ module Designax
     config.assets.version = '1.0'
 
     if Rails.env == 'production'
+      config.allowip = '192.168.48.0/21'
+    elsif Rails.env == 'staging'
+      config.allowip = '10.0.2.0/24'
+    elsif Rails.env == 'development'
+      config.allowip = '10.0.2.0/24'
+    else
+      config.allowip = '10.0.2.0/24'
+    end
+
+    if Rails.env == 'production'
       config.urlroot = 'https://designax.nubee.com'
     elsif Rails.env == 'staging'
       config.urlroot == 'http://127.0.0.1:3000'

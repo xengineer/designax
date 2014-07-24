@@ -17,8 +17,9 @@ Designax::Application.routes.draw do
 
   resources :image_data
 
-
-  devise_for :users
+  devise_for :users, :controllers => {
+    :registrations => "users/registrations"
+  }
 
   resources :corp_states
 
