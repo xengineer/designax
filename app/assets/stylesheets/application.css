@@ -8,9 +8,19 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require cssreset-min
  *= require_self
  *= require jquery.ad-gallery.css
- *= require_tree .
+ *= require base.css.sass
+ *= require bootstrap_and_overrides.css.less
+ *= require corp_states.css.sass
+ *= require design_data.css.sass
+ *= require image_data.css.sass
+ *= require projects.css.sass
+ *= require scaffolds.css.sass
+ *= require scaffolds.css.scss
+ *= require states.css.sass
+ *= require users.css.sass
  */
 /*
 *= require font-awesome

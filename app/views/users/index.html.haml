@@ -1,22 +1,19 @@
 # coding: utf-8
 
-%h1 Listing Users
+%h1 ユーザ一覧
 
-%table
-  %tr
-    %th Users
-    %th
-    %th
-    %th
+%div.list-title
+  %div.name.pull-left
+    %strong name
+  %div.role.pull-right
+    %strong role
 
+%ul.list-group
   - @users.each do |user|
-    %tr
-      %td= user.username
-      %td= user.user_group
-      %td= link_to 'Show', user
-      %td= link_to 'Edit', edit_user_path(user)
-      %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    %li.list-group-item
+      %div.username.pull-left= user.username
+      %div.userrole.pull-right= user.role
 
 %br
 
-= link_to 'New User', new_user_path
+= link_to 'New User', new_user_registration_path
