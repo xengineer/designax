@@ -1,3 +1,5 @@
+require 'ipaddr'
+
 class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :deny_access, :only => 'new'
 
