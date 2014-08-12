@@ -1,6 +1,7 @@
 require 'ipaddr'
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  skip_before_filter :require_no_authentication
   before_filter :deny_access, :only => 'new'
 
   def deny_access
@@ -10,6 +11,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if allowip.include?(remote_ip)
       return true
     end
+    logMessage = self.class.to_s + "#" + __method__.to_s + " " + current_user.username + remote_ip.to_s
+    logger.debug logMessage
 
     redirect_to new_user_session_path, :alert=>'You are not allow to access this URL.'
     return false
