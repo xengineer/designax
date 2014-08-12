@@ -31,7 +31,7 @@
               %li= link_to "Designs", "/design_data"
 
               - if user_signed_in?
-                - if current_user.role == 'admin' or current_user.role == 'manager'
+                - if current_user.role == 'admin'
                   %li= link_to "Edit project", "/projects"
                   %li= link_to "User List", users_path
 

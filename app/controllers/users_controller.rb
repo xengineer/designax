@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def authorize
-    if current_user.role.to_s == "admin" or current_user.role.to_s == "manager"
+    if current_user.role.to_s == "admin"
       return true
     end
     redirect_to design_data_path
