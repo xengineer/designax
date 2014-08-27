@@ -1,19 +1,39 @@
 # coding: utf-8
 
 %h1 ユーザ一覧
-
+%br
+%h2 アクティブユーザ一覧
 %div.list-title
   %div.name.pull-left
     %strong name
-  %div.role.pull-right
+  %div.role.pull-left
+    %strong role
+  %div.reset.pull-left
+    %strong Edit Userinfo
+  %div.remove.pull-left
+    %strong Disable account
+
+%ul.list-group
+  - @users_active.each do |user|
+    %li.list-group-item
+      %div.username.pull-left= user.username
+      %div.userrole.pull-left= user.role
+      %div.resetpasswd.pull-left= link_to 'Edit', edit_user_path(user.id)
+      %div.removeaccount.pull-left= link_to 'Disable', user_path(user.id), :method => :delete, data: { confirm: "本当に #{user.username} を無効化しますか？'" }
+%br
+%br
+%h2 非アクティブユーザ一覧
+%div.list-title
+  %div.name.pull-left
+    %strong name
+  %div.role.pull-left
     %strong role
 
 %ul.list-group
-  - @users.each do |user|
+  - @users_disabled.each do |user|
     %li.list-group-item
       %div.username.pull-left= user.username
-      %div.userrole.pull-right= user.role
-
+      %div.userrole.pull-left= user.role
 %br
-
+%br
 = link_to 'New User', new_user_registration_path

@@ -1,2 +1,14 @@
-%h1 Users#edit
-%p Find me in app/views/users/edit.html.haml
+%h2
+  Edit Password : 
+  = @user.username
+= simple_form_for @user, :html => { :method => :put } do |f|
+  = f.error_notification
+  .form-inputs
+    - if current_user.role == 'admin'
+      = f.input :new_password, :autocomplete => "off", :required => true
+      = f.input :password_confirmation, :required => true
+      = f.label :role
+      = f.collection_select :role, User::ROLES, :to_s, :humanize
+  .form-actions
+    = f.button :submit, "Update"
+= link_to "Back", :back
