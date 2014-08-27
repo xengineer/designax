@@ -61,10 +61,10 @@ class User < ActiveRecord::Base
   end
 
   def getUser
-    if self.role == "artist"
-      return User.find_all_by_username(self.username)
-    else
+    if self.role == "admin"
       return User.all
+    else
+      return User.find_all_by_username(self.username)
     end
   end
   #validates :username,

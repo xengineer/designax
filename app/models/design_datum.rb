@@ -161,10 +161,10 @@ class DesignDatum < ActiveRecord::Base
     end
 
     case user.role
-    when "artist"
+    when "manager", "artist"
       filter = filter + " and designer = ?"
       fltArtist = user.username
-    when "manager", "admin"
+    when "admin"
       if !fltArtist.blank?
         filter = filter + " and designer = ?"
         designer = User.find(fltArtist);
