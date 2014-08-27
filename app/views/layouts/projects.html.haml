@@ -33,19 +33,17 @@
                 - if current_user.role == 'admin'
                   %li= link_to "Edit project", "/projects"
 
-                %li= link_to "Edit user", "/users/edit"
-
-
+                %li= link_to "Edit user", edit_user_registration_path
               - if user_signed_in?
-                %li= link_to "Logout", "/users/sign_out", :method => :delete
+                %li= link_to "Logout", destroy_user_session_path, :method => :delete
               - else
                 %li= link_to 'Login', new_user_session_path
             - if user_signed_in?
-              %ul.navright
-                %li
-                  %span= "Welcome:" + current_user.username
-                %li
-                  %span= "Your Role:" + current_user.role
+              %ul.nav.pull-right
+                %li.nav_userinfo
+                  = "Welcome:" + current_user.username
+                %li.nav_userinfo
+                  = "Your Role:" + current_user.role
 
     .container-fluid
 

@@ -12,11 +12,11 @@ Designax::Application.routes.draw do
   resources :design_data
   resources :image_data
 
-  devise_for :users, :controllers => {
+  devise_for :users, :path_prefix => 'd', :controllers => {
     :registrations => "users/registrations"
   }
-
-  resources :users, only: [:index]
+  resources :users, only: [:index, :edit, :update, :destroy]
+  
   resources :corp_states
   resources :states
   resources :user_infos
