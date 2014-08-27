@@ -35,9 +35,9 @@
                   %li= link_to "Edit project", "/projects"
                   %li= link_to "User List", users_path
 
-                %li= link_to "Edit user", "/users/edit"
+                %li= link_to "Edit user", edit_user_registration_path
               - if user_signed_in?
-                %li= link_to "Logout", "/users/sign_out", :method => :delete
+                %li= link_to "Logout", destroy_user_session_path, :method => :delete
               - else
                 %li= link_to 'Login', new_user_session_path
             - if user_signed_in?
