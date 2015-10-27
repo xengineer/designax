@@ -96,27 +96,6 @@ class ImageDataController < ApplicationController
         send_data(imagefiles.to_s, :type => 'text/plain', :disposition =>'inline')
       }
     end
-    
-    #text = ""
-    #urlroot = Designax::Application.config.urlroot
-    #design_data = DesignDatum.find(params[:id])
-    #
-    #filter = "file_name = ? and delflag = ?"
-    #image_data = ImageDatum.where(filter, design_data.file_name, "0").order('seq_id desc')
-    #respond_to do |format|
-    #  format.text {
-    #    lp = 1
-    #    image_data.each { |image|
-    #      text = text + "<li>\n" +
-    #                    "    <a display=\"block\" height=\"56px\" href=\" + urlroot + "/image_data/image/" + image.id.to_s + "\">\n" +
-    #                    "    <img alt=\" + lp.to_s + "\" height=\"56px\" src=\" + urlroot + "/image_data/thumbnail/" + image.id.to_s + "\" style=\"opacity: 0.7;\">\n" +
-    #                    "  </a>\n" +
-    #                    "</li>"
-    #      lp = lp + 1
-    #    }
-    #    send_data(text.to_s, :type => 'text/plain', :disposition =>'inline')
-    #  }
-    #end
   end
 
   def get_currentId
@@ -127,24 +106,9 @@ class ImageDataController < ApplicationController
         send_data(currentId.to_s, :type => 'text/plain', :disposition =>'inline')
       }
     end
-
-    #text = ""
-    #respond_to do |format|
-    #  format.text {
-    #    @design_data = DesignDatum.find(params[:id])
-    #    image_data  = ImageDatum.find_by_file_name_and_seq_id(@design_data.file_name, @design_data.curSeq_id)
-    #    if image_data.nil?
-    #      print "image_data wa nil dayo.\n"
-    #    end
-    #    text = image_data.id.to_s
-    #    send_data(text.to_s, :type => 'text/plain', :disposition =>'inline')
-    #  }
-    #  format.json { render json: updateDlg }
-    #end
   end
 
   def show_thumbnail
-    #@image_datum = ImageDatum.find(params[:id])
     id = params[:id]
  
     col = "thumbnail, ctype, file_name"
@@ -155,7 +119,6 @@ class ImageDataController < ApplicationController
   end
 
   def show_image
-    #@image_datum = ImageDatum.find(params[:id])
     id = params[:id]
  
     col = "image, ctype, file_name"
