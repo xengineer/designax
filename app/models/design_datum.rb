@@ -36,9 +36,6 @@ class DesignDatum < ActiveRecord::Base
   validates :project_id,
             :presence => {:message => "no project."},
             :numericality => {:only_integer => true, :greater_than => 0, :less_than => 1000, :message => " wrong project."}
-  #validates_date :deadline, :after => :today
-
-                 #:after_message => " must be set to future."
 
   validate :file_invalid?
 
@@ -68,7 +65,6 @@ class DesignDatum < ActiveRecord::Base
     else
       self.corp_state_id  = data.corp_state_id  if data.corp_state_id
     end
-    #image.rewind
   end
 
   def updateData(postedDesign, user, imageId, thumb)
@@ -103,13 +99,6 @@ class DesignDatum < ActiveRecord::Base
 
     return [image_datum, imgs]
   end 
-
-  #def getImagesByFileName()
-  #  image = ImageDatum.new()
-  #  image.file_name = self.file_name
-  #  return image.getImagesByFileName()
-  #end
-
 
   def setImage(imgdat)
     img                 = Magick::Image.from_blob(imgdat.read)

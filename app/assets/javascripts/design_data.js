@@ -95,6 +95,7 @@ $(function () {
       yearhtml  = "<select id=\"design_datum_deadline_1i\" name=\"design_datum[deadline(1i)]\" style=\"width: 30%\">\n";
       monthhtml = "<select id=\"design_datum_deadline_2i\" name=\"design_datum[deadline(2i)]\" style=\"width: 30%\">\n";
       dayhtml   = "<select id=\"design_datum_deadline_3i\" name=\"design_datum[deadline(3i)]\" style=\"width: 30%\">\n";
+      year = parseInt(year, 10)
 
       for(var i = year; i <= year + 6; i++) {
         if(i == year) {
