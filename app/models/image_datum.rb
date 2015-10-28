@@ -51,7 +51,7 @@ class ImageDatum < ActiveRecord::Base
 
   def self.get_currentId(id)
     design_data = DesignDatum.find(id)
-    image_data  = ImageDatum.where(file_name: design_data.file_name, seq_id: design_data.curSeq_id).select(:id)
+    image_data  = ImageDatum.where(file_name: design_data.file_name, seq_id: design_data.curSeq_id).pluck(:id)[0]
     if image_data.nil?
       print "image_data wa nil dayo.\n"
       return -1
